@@ -1,21 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Pónya Bonifác</title>
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300&family=Merriweather:ital@1&display=swap" rel="stylesheet"><link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlackCat Glass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300;600&family=Merriweather:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<header>
-<div class="headbox"><a href="index.html">Kezdőlap</a></div>
-<div class="headbox"><a href="aboutme.html">Rólam</a></div>
-<div class="headbox"><a href="news.html">Újdonságok</a></div>
-<div class="headbox"><a href="elérhetőségek.html">Elérhetőségek</a></div>
+<body data-page="home">
+  <noscript class="noscript-banner" data-i18n="common.noscript">Ez az oldal TypeScript alapú funkciókat használ, ezért kapcsold be a JavaScriptet a teljes élményhez.</noscript>
+  <header class="site-header">
+    <div class="logo" aria-label="BlackCat Glass">BlackCat Glass</div>
+    <nav class="main-nav" aria-label="Fő navigáció">
+      <a class="nav-link" href="index.html" data-i18n="nav.home">Kezdőlap</a>
+      <a class="nav-link" href="aboutme.html" data-i18n="nav.about">Rólunk</a>
+      <a class="nav-link" href="news.html" data-i18n="nav.news">Hírek</a>
+      <a class="nav-link" href="reachout.html" data-i18n="nav.contact">Kapcsolat</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language switch">
+      <button class="lang-btn" data-lang="hu">HU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </header>
 
-</header>
-<main>
-  <p>Cica</p>
-</main>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow" data-i18n="home.hero.eyebrow">Független játékstúdió</p>
+      <h1 data-i18n="home.hero.title">Neon noir világok kézzel fújva</h1>
+      <p class="page-lead" data-i18n="home.hero.lead">Atmoszférikus lopakodós kalandokat készítünk, ahol az üveg, a fény és a ritmus narratívává válik.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="news.html" data-i18n="home.hero.primary">Roadmap & devlog</a>
+        <a class="btn ghost" href="aboutme.html" data-i18n="home.hero.secondary">Találkozz a csapattal</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2 data-i18n="home.projects.heading">Aktuális buildjeink</h2>
+        <p data-i18n="home.projects.subheading">A TypeScript tölti fel a sprint alatt lévő projektek részleteit.</p>
+      </div>
+      <div class="card-grid" data-goal-list>
+        <article class="card goal-card">
+          <h3>Mirror Bloom</h3>
+          <p>Amíg nem fut a TypeScript, ez a statikus helykitöltő látszik.</p>
+          <div class="progress" aria-label="Haladás">
+            <div class="progress-bar" style="width: 45%"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section highlight">
+      <div class="section-heading">
+        <h2 data-i18n="home.stats.heading">Stúdió pulzus</h2>
+        <p data-i18n="home.stats.subheading">Mennyi pálya, asset és együttműködés készül éppen.</p>
+      </div>
+      <div class="stat-grid" data-metric-board>
+        <article class="stat-card">
+          <p class="stat-label">Sprint</p>
+          <p class="stat-value">3</p>
+          <p class="stat-note">Statikus fallback</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span data-current-year>2026</span> BlackCat Glass · <span data-i18n="common.rights">Minden jog fenntartva.</span></p>
+  </footer>
+
+  <script type="module" defer src="scripts/main.js"></script>
 </body>
 </html>

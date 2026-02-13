@@ -1,19 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Rólam</title>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300&family=Merriweather:ital@1&display=swap" rel="stylesheet"><link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackCat Glass – Rólunk</title>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300;600&family=Merriweather:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <div class="headbox"><a href="index.html">Kezdőlap</a></div>
-        <div class="headbox"><a href="">Rólam</a></div>
-        <div class="headbox"><a href="">Újdonságok</a></div>
-        <div class="headbox"><a href="elérhetőségek.html">Elérhetőségek</a></div>
-        
-        </header>
-    <p>Cica</p>
+<body data-page="about">
+    <noscript class="noscript-banner" data-i18n="common.noscript">Ez az oldal TypeScript alapú funkciókat használ, ezért kapcsold be a JavaScriptet a teljes élményhez.</noscript>
+    <header class="site-header">
+        <div class="logo" aria-label="BlackCat Glass">BlackCat Glass</div>
+        <nav class="main-nav" aria-label="Fő navigáció">
+            <a class="nav-link" href="index.html" data-i18n="nav.home">Kezdőlap</a>
+            <a class="nav-link" href="aboutme.html" data-i18n="nav.about">Rólunk</a>
+            <a class="nav-link" href="news.html" data-i18n="nav.news">Hírek</a>
+            <a class="nav-link" href="reachout.html" data-i18n="nav.contact">Kapcsolat</a>
+        </nav>
+        <div class="lang-switch" role="group" aria-label="Language switch">
+            <button class="lang-btn" data-lang="hu">HU</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow" data-i18n="about.hero.eyebrow">Stúdió portré</p>
+            <h1 data-i18n="about.hero.title">BlackCat Glass csapat</h1>
+            <p class="page-lead" data-i18n="about.hero.lead">Lopakodós játéksztorikat, hangdizájnt és vizuális identitást két alkotó hoz életre: Pónya Bonifác és Mercz Kristóf.</p>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <h2 data-i18n="about.mission.heading">Manifesztó</h2>
+                <p data-i18n="about.mission.subheading">A játékainkban a fény dönt, az üveg törik, és a zene vezeti a játékost.</p>
+            </div>
+            <div class="text-columns">
+                <p data-i18n="about.mission.body1">A BlackCat Glass atmoszférikus lopakodós játékokat fejleszt, ahol a pályák egy-egy installációhoz hasonlóan vannak komponálva. Kísérletezünk a valós időben változó fényekkel, üvegszimulációval, valamint a ritmusra reagáló AI-val.</p>
+                <p data-i18n="about.mission.body2">A stúdió működése duóra épül: az audio-vizuális rendezést Bonifác viszi, a textúrákat és karaktereket Kristóf. A TypeScript réteg automatikusan meséli el, min dolgozunk épp, legyen szó prototípról vagy kiállítási installációról.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <h2 data-i18n="about.team.heading">Rólunk kettőnk szemszögéből</h2>
+                <p data-i18n="about.team.subheading">A TypeScript tölti fel a profilkártyákat.</p>
+            </div>
+            <div class="team-grid" data-team-profiles>
+                <article class="card team-card">
+                    <h3>BlackCat Glass</h3>
+                    <p>Statikus helykitöltő, ha nem fut a TypeScript.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <h2 data-i18n="about.timeline.heading">Mérföldkövek</h2>
+                <p data-i18n="about.timeline.subheading">Az idővonalat TypeScript generálja a kulcsprojektek alapján.</p>
+            </div>
+            <ol class="timeline" data-timeline>
+                <li class="timeline-item">
+                    <span class="timeline-year">2024</span>
+                    <div class="timeline-content">
+                        <h3 data-i18n="about.timeline.placeholder.title">BlackCat Glass indul</h3>
+                        <p data-i18n="about.timeline.placeholder.body">Ha nem fut a TypeScript, ez a fallback marad.</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section quote">
+            <blockquote data-i18n="about.quote">„A játékaink üvegből épülnek, de a történetek élő zenére lélegeznek.”</blockquote>
+            <cite data-i18n="about.quote.author">Bonifác & Kristóf</cite>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© <span data-current-year>2026</span> BlackCat Glass · <span data-i18n="common.rights">Minden jog fenntartva.</span></p>
+    </footer>
+
+    <script type="module" defer src="scripts/main.js"></script>
 </body>
 </html>
