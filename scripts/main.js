@@ -1,10 +1,18 @@
 "use strict";
 const fileAliasMap = {
     '': 'home',
+    'index': 'home',
     'index.html': 'home',
+    'about': 'about',
+    'aboutme': 'about',
     'aboutme.html': 'about',
+    'news': 'news',
     'news.html': 'news',
+    'reachout': 'contact',
     'reachout.html': 'contact',
+    'contact': 'contact',
+    'contact.html': 'contact',
+    'elerhetosegek': 'contact',
     'elerhetosegek.html': 'contact'
 };
 const translations = {
@@ -331,8 +339,8 @@ const contactProfiles = [
             },
             {
                 label: { hu: 'Instagram', en: 'Instagram' },
-                value: '@bonifac.p',
-                href: 'https://instagram.com/bonifac.p',
+                value: '@bonifac.codeslight',
+                href: 'https://instagram.com/bonifac.codeslight',
                 hint: { hu: 'Live dev sztorik és soundtrack sneak peek', en: 'Live dev stories & soundtrack sneak peeks' }
             }
         ]
@@ -359,31 +367,6 @@ const contactProfiles = [
                 value: '@mercz.glass',
                 href: 'https://instagram.com/mercz.glass',
                 hint: { hu: 'Naponta friss concept drop', en: 'Daily concept drops' }
-            }
-        ]
-    },
-            {
-        name: 'Cseh Márk',
-        role: {
-            hu: 'Product director',
-            en: 'Product director'
-        },
-        focus: {
-            hu: 'Partnerség, produkció',
-            en: 'Partnerships, production'
-        },
-        channels: [
-            {
-                label: { hu: 'Email', en: 'Email' },
-                value: 'mark@blackcatglass.studio',
-                href: 'mailto:mark@blackcatglass.studio',
-                hint: { hu: '24 órán belül válaszol', en: 'Replies within 24 hours' }
-            },
-            {
-                label: { hu: 'Instagram', en: 'Instagram' },
-                value: '@mark.cz_',
-                href: 'https://instagram.com/mark.cz_',
-                hint: { hu: 'Termék tervezés, marketing', en: 'Product plans, marketing' }
             }
         ]
     }

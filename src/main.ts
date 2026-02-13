@@ -70,10 +70,18 @@ interface ScheduleInfo {
 
 const fileAliasMap: Record<string, PageKey> = {
   '': 'home',
+  'index': 'home',
   'index.html': 'home',
+  'about': 'about',
+  'aboutme': 'about',
   'aboutme.html': 'about',
+  'news': 'news',
   'news.html': 'news',
+  'reachout': 'contact',
   'reachout.html': 'contact',
+  'contact': 'contact',
+  'contact.html': 'contact',
+  'elerhetosegek': 'contact',
   'elerhetosegek.html': 'contact'
 };
 
