@@ -300,6 +300,12 @@ body.nav-open .site-footer {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
   font-size: 0.8rem;
+
+  @media (max-width: 480px) {
+    margin-top: 0.1rem;
+    display: inline-block;
+  }
+  
 }
 
 .schedule-label {
