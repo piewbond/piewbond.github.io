@@ -308,6 +308,56 @@ const activateNavigation = (): void => {
   });
 };
 
+const initMobileNavigation = (): void => {
+  const nav = document.querySelector<HTMLElement>('.main-nav');
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const backdrop = document.querySelector<HTMLButtonElement>('.nav-backdrop');
+
+  if (!nav || !toggle || !backdrop) {
+    return;
+  }
+
+  const closeMenu = (): void => {
+    nav.classList.remove('is-open');
+    backdrop.classList.remove('is-visible');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  };
+
+  const openMenu = (): void => {
+    nav.classList.add('is-open');
+    backdrop.classList.add('is-visible');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-open');
+  };
+
+  toggle.addEventListener('click', () => {
+    if (nav.classList.contains('is-open')) {
+      closeMenu();
+      return;
+    }
+    openMenu();
+  });
+
+  backdrop.addEventListener('click', closeMenu);
+
+  nav.querySelectorAll<HTMLAnchorElement>('.nav-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 720) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+    }
+  });
+};
+
 const localeFormatFor = (locale: Locale): Intl.LocalesArgument => localeFormatMap[locale];
 
 const formatDate = (isoString: string): string => {
@@ -360,6 +410,10 @@ const updateLanguageButtons = (): void => {
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-pressed', String(isActive));
   });
+};
+
+const releaseNavPreloadGuard = (): void => {
+  document.documentElement.classList.remove('locale-en-loading-nav');
 };
 
 const persistLocale = (locale: Locale): void => {
@@ -563,6 +617,7 @@ const setLocale = (locale: Locale): void => {
   persistLocale(locale);
   updateLanguageButtons();
   applyTranslations();
+  releaseNavPreloadGuard();
   renderDynamicSections();
 };
 
@@ -570,6 +625,7 @@ const initLanguageSwitcher = (): void => {
   document.documentElement.lang = currentLocale;
   updateLanguageButtons();
   applyTranslations();
+  releaseNavPreloadGuard();
   const buttons = document.querySelectorAll<HTMLButtonElement>('.lang-btn');
   buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -583,6 +639,7 @@ const initLanguageSwitcher = (): void => {
 
 const init = (): void => {
   activateNavigation();
+  initMobileNavigation();
   initLanguageSwitcher();
   renderDynamicSections();
   wireNewsletterForm();

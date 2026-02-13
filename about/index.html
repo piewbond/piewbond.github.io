@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            try {
+                if (window.localStorage.getItem('bcg-locale') === 'en') {
+                    document.documentElement.classList.add('locale-en-loading-nav');
+                }
+            } catch (error) {
+                // ignore
+            }
+        })();
+    </script>
     <title>BlackCat Glass – Rólunk</title>
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300;600&family=Merriweather:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
@@ -11,12 +22,14 @@
     <noscript class="noscript-banner" data-i18n="common.noscript">Ez az oldal TypeScript alapú funkciókat használ, ezért kapcsold be a JavaScriptet a teljes élményhez.</noscript>
     <header class="site-header">
         <div class="logo" aria-label="BlackCat Glass">BlackCat Glass</div>
-        <nav class="main-nav" aria-label="Fő navigáció">
+        <button class="nav-toggle" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="main-navigation">☰</button>
+        <nav id="main-navigation" class="main-nav" aria-label="Fő navigáció">
             <a class="nav-link" href="/home/" data-i18n="nav.home">Kezdőlap</a>
             <a class="nav-link" href="/about/" data-i18n="nav.about">Rólunk</a>
             <a class="nav-link" href="/news/" data-i18n="nav.news">Hírek</a>
             <a class="nav-link" href="/contact/" data-i18n="nav.contact">Kapcsolat</a>
         </nav>
+        <button class="nav-backdrop" type="button" aria-label="Menü bezárása"></button>
         <div class="lang-switch" role="group" aria-label="Language switch">
             <button class="lang-btn" data-lang="hu">HU</button>
             <button class="lang-btn" data-lang="en">EN</button>
