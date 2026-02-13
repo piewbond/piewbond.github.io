@@ -259,11 +259,22 @@ img {
   color: var(--muted);
 }
 
+.news-date {
+  font-weight: 600;
+  padding-top: 0.25rem;
+}
+
 .badge {
   padding: 0.2rem 0.75rem;
+  margin-right: 0.2rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
   font-size: 0.8rem;
+}
+
+.schedule-label {
+  font-weight: 600;
+  margin-right: 10px;
 }
 
 .newsletter {

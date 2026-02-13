@@ -501,11 +501,11 @@ const renderScheduleCard = (): void => {
   }
   host.innerHTML = '';
   const card = createElement('article', 'card schedule-card');
-  const list = createElement('ul', 'schedule-list');
+  const list = createElement('div', 'schedule-list');
   studioSchedule.windows.forEach(window => {
-    const item = createElement('li', 'schedule-row');
-    item.appendChild(createElement('strong', '', translate(window.label)));
-    item.appendChild(createElement('span', '', translate(window.detail)));
+    const item = createElement('div', 'schedule-row');
+    item.appendChild(createElement('span', 'schedule-label', translate(window.label)));
+    item.appendChild(createElement('p', 'schedule-detail', translate(window.detail)));
     list.appendChild(item);
   });
   card.appendChild(list);
