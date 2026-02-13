@@ -248,6 +248,19 @@ const initMobileNavigation = () => {
         openMenu();
     });
     backdrop.addEventListener('click', closeMenu);
+    document.addEventListener('click', event => {
+        if (!nav.classList.contains('is-open')) {
+            return;
+        }
+        const target = event.target;
+        if (!(target instanceof Node)) {
+            return;
+        }
+        if (nav.contains(target) || toggle.contains(target)) {
+            return;
+        }
+        closeMenu();
+    });
     nav.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', closeMenu);
     });

@@ -110,6 +110,16 @@ img {
   padding: clamp(2rem, 5vw, 4rem) 0 4rem;
 }
 
+.page,
+.site-footer {
+  transition: opacity 0.2s ease;
+}
+
+body.nav-open .page,
+body.nav-open .site-footer {
+  opacity: 0.35;
+}
+
 .hero {
   margin-bottom: clamp(2rem, 5vw, 4rem);
 }
