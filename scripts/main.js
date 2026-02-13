@@ -4,144 +4,44 @@ const fileAliasMap = {
     'index': 'home',
     'index.html': 'home',
     'about': 'about',
-    'aboutme': 'about',
-    'aboutme.html': 'about',
+    'about.html': 'about',
     'news': 'news',
     'news.html': 'news',
-    'reachout': 'contact',
-    'reachout.html': 'contact',
     'contact': 'contact',
     'contact.html': 'contact',
     'elerhetosegek': 'contact',
     'elerhetosegek.html': 'contact'
 };
-const translations = {
-    hu: {
-        'common.noscript': 'Ez az oldal TypeScript alapú funkciókat használ, ezért kapcsold be a JavaScriptet a teljes élményhez.',
-        'common.rights': 'Minden jog fenntartva.',
-        'common.readMore': 'Részletek',
-        'nav.home': 'Kezdőlap',
-        'nav.about': 'Rólunk',
-        'nav.news': 'Hírek',
-        'nav.contact': 'Kapcsolat',
-        'home.hero.eyebrow': 'Független játékstúdió',
-        'home.hero.title': 'Neon noir világok kézzel fújva',
-        'home.hero.lead': 'Atmoszférikus lopakodós kalandokat készítünk, ahol az üveg, a fény és a ritmus narratívává válik.',
-        'home.hero.primary': 'Roadmap & devlog',
-        'home.hero.secondary': 'Találkozz a csapattal',
-        'home.projects.heading': 'Aktuális buildjeink',
-        'home.projects.subheading': 'A TypeScript tölti fel a sprint alatt lévő projektek részleteit.',
-        'home.stats.heading': 'Stúdió pulzus',
-        'home.stats.subheading': 'Mennyi pálya, asset és együttműködés készül éppen.',
-        'about.hero.eyebrow': 'Stúdió portré',
-        'about.hero.title': 'BlackCat Glass csapat',
-        'about.hero.lead': 'Lopakodós játéksztorikat, hangdizájnt és vizuális identitást két alkotó hoz életre: Pónya Bonifác és Mercz Kristóf.',
-        'about.mission.heading': 'Manifesztó',
-        'about.mission.subheading': 'A játékainkban a fény dönt, az üveg törik, és a zene vezeti a játékost.',
-        'about.mission.body1': 'A BlackCat Glass atmoszférikus lopakodós játékokat fejleszt, ahol a pályák egy-egy installációhoz hasonlóan vannak komponálva.',
-        'about.mission.body2': 'Bonifác felel a hangért és rendezésért, Kristóf az üvegtextúrákért – a TypeScript réteg meséli el, min dolgozunk éppen.',
-        'about.team.heading': 'Rólunk kettőnk szemszögéből',
-        'about.team.subheading': 'A TypeScript tölti fel a profilkártyákat.',
-        'about.timeline.heading': 'Mérföldkövek',
-        'about.timeline.subheading': 'Az idővonalat TypeScript generálja a kulcsprojektek alapján.',
-        'about.timeline.placeholder.title': 'BlackCat Glass indul',
-        'about.timeline.placeholder.body': 'Ha nem fut a TypeScript, ez a fallback marad.',
-        'about.quote': '„A játékaink üvegből épülnek, de a történetek élő zenére lélegeznek.”',
-        'about.quote.author': 'Bonifác & Kristóf',
-        'news.hero.eyebrow': 'Devlog',
-        'news.hero.title': 'Hírek és események',
-        'news.hero.lead': 'A TypeScript gondoskodik róla, hogy mindig a legfrissebb bejelentéseket lássad.',
-        'news.feed.heading': 'Aktuális hírek',
-        'news.feed.subheading': 'A kártyákat TypeScript generálja a legújabb milestone-ok alapján.',
-        'news.newsletter.heading': 'Hírlevél',
-        'news.newsletter.subheading': 'Heti devlog összefoglaló, prototípek és soundtrack részletek.',
-        'news.newsletter.label': 'Email',
-        'news.newsletter.placeholder': 'email@blackcatglass.com',
-        'news.newsletter.button': 'Feliratkozom',
-        'news.newsletter.hint': 'A beküldés most még demó: TypeScript csak validál, nem küld adatot.',
-        'news.newsletter.success': 'Köszi! Hamarosan megérkezik az első összefoglaló ide: {{email}}.',
-        'contact.eyebrow': 'Kapcsolat',
-        'contact.title': 'Lépj velünk kapcsolatba',
-        'contact.lede': 'Ha szeretnél együtt dolgozni velünk, vagy kérdésed van a projektek kapcsán, írj bátran. BlackCat Glass egy indie stúdió – az őszinte beszélgetésekből születnek a legjobb játékok.',
-        'contact.sectionEyebrow': 'Csapat & Elérhetőség',
-        'contact.sectionTitle': 'Két alkotó, két nézőpont – egy stúdió',
-        'contact.sectionIntro': 'Minden csatornán személyesen válaszolunk. Emailben kapsz mélyebb válaszokat, Instagramon pedig láthatod a friss fejlesztési bejegyzéseket.',
-        'contact.scheduleEyebrow': 'Nyitott órák',
-        'contact.scheduleTitle': 'Alkotási ritmusunk',
-        'contact.scheduleIntro': 'BlackCat Glass organikusan működik – a beszélgetések akkor a leghatékonyabbak, ha tudod, mikor merre jár a figyelmünk.',
-        'contact.careersEyebrow': 'Csatlakoznál?',
-        'contact.careersTitle': 'Mutasd meg mire képes a képzeleted',
-        'contact.careersIntro': 'Indie stúdióként folyamatosan figyeljük az új tehetségeket. Ha úgy érzed, illenek rád a stúdió értékei, írj nekünk egy rövid bemutatkozót az e-mail címünkre „BlackCat Collaborate” tárggyal.',
-        'contact.careersCtaTitle': 'BlackCat Glass open call',
-        'contact.careersCtaBody': 'Küldj portfóliót, mini demót vagy vázlatot. A lényeg, hogy benne legyen a saját mitológiád.',
-        'contact.careersCtaButton': 'Írok a stúdiónak',
-        'footer.copy': '© BlackCat Glass – Indie játéksütő stúdió Budapestről.',
-        'footer.instagram': 'Instagram',
-        'footer.email': 'hello@blackcatglass.studio'
-    },
-    en: {
-        'common.noscript': 'This site relies on TypeScript-powered features, so please enable JavaScript for the full experience.',
-        'common.rights': 'All rights reserved.',
-        'common.readMore': 'Read more',
-        'nav.home': 'Home',
-        'nav.about': 'About',
-        'nav.news': 'News',
-        'nav.contact': 'Contact',
-        'home.hero.eyebrow': 'Independent game studio',
-        'home.hero.title': 'Neon noir worlds, blown like glass',
-        'home.hero.lead': 'We craft atmospheric stealth adventures where glass, light, and rhythm become narrative.',
-        'home.hero.primary': 'Roadmap & devlog',
-        'home.hero.secondary': 'Meet the team',
-        'home.projects.heading': 'Current builds',
-        'home.projects.subheading': 'TypeScript fills in the sprint data for every project.',
-        'home.stats.heading': 'Studio pulse',
-        'home.stats.subheading': 'Tracking levels, assets, and collabs in progress.',
-        'about.hero.eyebrow': 'Studio portrait',
-        'about.hero.title': 'The BlackCat Glass team',
-        'about.hero.lead': 'Two creators shape stealth stories, sound design, and visual identity: Bonifác Pónya and Kristóf Mercz.',
-        'about.mission.heading': 'Manifesto',
-        'about.mission.subheading': 'In our games light makes the calls, glass breaks, and music guides the player.',
-        'about.mission.body1': 'BlackCat Glass builds atmospheric stealth games where every level feels like an installation.',
-        'about.mission.body2': 'Bonifác handles direction and sound, Kristóf sculpts the glass textures – the TypeScript layer narrates what we are building.',
-        'about.team.heading': 'Two viewpoints, one studio',
-        'about.team.subheading': 'Team cards are rendered by TypeScript.',
-        'about.timeline.heading': 'Milestones',
-        'about.timeline.subheading': 'The timeline is generated from our key projects.',
-        'about.timeline.placeholder.title': 'BlackCat Glass launches',
-        'about.timeline.placeholder.body': 'If TypeScript is offline, this fallback remains.',
-        'about.quote': '“Our games are built from glass, yet the stories breathe to living music.”',
-        'about.quote.author': 'Bonifác & Kristóf',
-        'news.hero.eyebrow': 'Devlog',
-        'news.hero.title': 'News & events',
-        'news.hero.lead': 'TypeScript keeps the freshest announcements in front of you.',
-        'news.feed.heading': 'Latest news',
-        'news.feed.subheading': 'Cards are generated from the newest milestones.',
-        'news.newsletter.heading': 'Newsletter',
-        'news.newsletter.subheading': 'Weekly devlog recaps, prototypes, and soundtrack cues.',
-        'news.newsletter.label': 'Email',
-        'news.newsletter.placeholder': 'email@blackcatglass.com',
-        'news.newsletter.button': 'Subscribe',
-        'news.newsletter.hint': 'Submitting is still a demo: TypeScript validates, but no data is sent.',
-        'news.newsletter.success': 'Thanks! The first recap will land in your inbox soon: {{email}}.',
-        'contact.eyebrow': 'Contact',
-        'contact.title': 'Reach the duo',
-        'contact.lede': 'Partner with us, ask about the builds, or drop a hello. Honest conversations forge the best indie titles.',
-        'contact.sectionEyebrow': 'Team & Contact',
-        'contact.sectionTitle': 'Two creators, two channels – one studio',
-        'contact.sectionIntro': 'We answer every channel personally. Email for deep dives, Instagram for live dev stories.',
-        'contact.scheduleEyebrow': 'Open windows',
-        'contact.scheduleTitle': 'Our creative rhythm',
-        'contact.scheduleIntro': 'BlackCat Glass runs organically – reaching out is easiest when you see our weekly cadence.',
-        'contact.careersEyebrow': 'Want to collaborate?',
-        'contact.careersTitle': 'Show us where your imagination runs',
-        'contact.careersIntro': 'We keep an eye on new talent. If our studio values resonate, send a short introduction titled “BlackCat Collaborate”.',
-        'contact.careersCtaTitle': 'BlackCat Glass open call',
-        'contact.careersCtaBody': 'Send a portfolio, mini demo, or sketch – we want to feel your personal mythology.',
-        'contact.careersCtaButton': 'Write the studio',
-        'footer.copy': '© BlackCat Glass – Indie game studio from Budapest.',
-        'footer.instagram': 'Instagram',
-        'footer.email': 'hello@blackcatglass.studio'
-    }
+const translationSources = {
+    hu: '/src/translations/HU_hun.json',
+    en: '/src/translations/EN_eng.json'
+};
+let translations = {
+    hu: {},
+    en: {}
+};
+const loadTranslations = async () => {
+    const entries = await Promise.all(Object.entries(translationSources).map(async ([locale, path]) => {
+        const cacheBusted = `${path}?t=${Date.now()}`;
+        try {
+            const response = await fetch(cacheBusted);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${cacheBusted}: ${response.status}`);
+            }
+            const table = (await response.json());
+            console.info(`Loaded translations for ${locale}`, Object.keys(table).length);
+            return [locale, table];
+        }
+        catch (error) {
+            console.error('Translation load failed', error);
+            return [locale, translations[locale]];
+        }
+    }));
+    const nextTranslations = { hu: {}, en: {} };
+    entries.forEach(([locale, table]) => {
+        nextTranslations[locale] = table;
+    });
+    translations = nextTranslations;
 };
 const localeStorageKey = 'bcg-locale';
 const localeFormatMap = {
@@ -150,255 +50,114 @@ const localeFormatMap = {
 };
 const goals = [
     {
-        title: { hu: 'Mirror Bloom vertical slice', en: 'Mirror Bloom vertical slice' },
-        detail: {
-            hu: 'Stealth pályák neon üveg labirintusokkal és dinamikus fénytöréssel.',
-            en: 'Stealth arenas filled with neon glass labyrinths and real-time refractions.'
-        },
+        title: 'goals.0.title',
+        detail: 'goals.0.detail',
         progress: 72,
-        focus: { hu: 'Immersive stealth', en: 'Immersive stealth' }
+        focus: 'goals.0.focus'
     },
     {
-        title: { hu: 'Glass Saints soundtrack', en: 'Glass Saints soundtrack' },
-        detail: {
-            hu: 'Kristóf textúráihoz Bonifác moduláris ambientet komponál élő felvételekkel.',
-            en: 'Bonifác scores modular ambient suites for Kristóf’s tactile textures.'
-        },
+        title: 'goals.1.title',
+        detail: 'goals.1.detail',
         progress: 48,
-        focus: { hu: 'Audiovizuális narratíva', en: 'Audio-visual narrative' }
+        focus: 'goals.1.focus'
     },
     {
-        title: { hu: 'Cathedral of Shards R&D', en: 'Cathedral of Shards R&D' },
-        detail: {
-            hu: 'Kísérleti AI rutin, ami a fény és zaj alapján vált stratégiát a pályákon.',
-            en: 'Experimental AI routine that pivots tactics based on light and noise levels.'
-        },
+        title: 'goals.2.title',
+        detail: 'goals.2.detail',
         progress: 31,
-        focus: { hu: 'K+F', en: 'R&D' }
+        focus: 'goals.2.focus'
     }
 ];
 const metrics = [
-    {
-        label: { hu: 'Aktív build', en: 'Active builds' },
-        value: '3',
-        note: { hu: 'Mirror Bloom · Glass Saints · Cathedral', en: 'Mirror Bloom · Glass Saints · Cathedral' }
-    },
-    {
-        label: { hu: 'Asset drop', en: 'Asset drops' },
-        value: '120+',
-        note: { hu: 'Heti ArtStation bejegyzések', en: 'Weekly ArtStation drops' }
-    },
-    {
-        label: { hu: 'Közösségi playtest', en: 'Community playtests' },
-        value: '5',
-        note: { hu: 'Discord core csapat', en: 'Discord core squad' }
-    }
+    { label: 'metrics.0.label', value: '3', note: 'metrics.0.note' },
+    { label: 'metrics.1.label', value: '120+', note: 'metrics.1.note' },
+    { label: 'metrics.2.label', value: '5', note: 'metrics.2.note' }
 ];
 const newsItems = [
     {
         date: '2026-02-18',
-        title: {
-            hu: 'Mirror Bloom: neon lopakodó build #12',
-            en: 'Mirror Bloom: neon stealth build #12'
-        },
-        summary: {
-            hu: 'Új fénytörés shader és „listen-to-glass” AI viselkedés került a vert slice-ba.',
-            en: 'New refraction shader plus a “listen-to-glass” AI routine shipped inside the vertical slice.'
-        },
-        tags: [
-            { hu: 'Devlog', en: 'Devlog' },
-            { hu: 'Build', en: 'Build' }
-        ],
+        title: 'news.items.0.title',
+        summary: 'news.items.0.summary',
+        tags: ['news.items.0.tags.0', 'news.items.0.tags.1'],
         link: 'https://blackcatglass.studio/devlog/mirror-bloom-12'
     },
     {
         date: '2026-02-05',
-        title: {
-            hu: 'Glass Saints soundtrack session',
-            en: 'Glass Saints soundtrack session'
-        },
-        summary: {
-            hu: 'Bonifác modular synth loopjai összeértek Kristóf üvegrezgéseivel – új OST preview érkezik.',
-            en: 'Bonifác’s modular loops now breathe with Kristóf’s glass resonances – OST preview is coming.'
-        },
-        tags: [
-            { hu: 'Audio', en: 'Audio' },
-            { hu: 'Studio', en: 'Studio' }
-        ]
+        title: 'news.items.1.title',
+        summary: 'news.items.1.summary',
+        tags: ['news.items.1.tags.0', 'news.items.1.tags.1']
     },
     {
         date: '2026-01-22',
-        title: {
-            hu: 'Mercz Kristóf concept drop',
-            en: 'Mercz Kristóf concept drop'
-        },
-        summary: {
-            hu: 'Kristóf új karakterlapjai bemutatják a Glass Saints antagonista frakcióját.',
-            en: 'Kristóf’s latest boards introduce the antagonist faction for Glass Saints.'
-        },
-        tags: [
-            { hu: 'Art', en: 'Art' },
-            { hu: 'Concept', en: 'Concept' }
-        ]
+        title: 'news.items.2.title',
+        summary: 'news.items.2.summary',
+        tags: ['news.items.2.tags.0', 'news.items.2.tags.1']
     }
 ];
 const timelineEntries = [
-    {
-        year: '2026',
-        title: {
-            hu: 'Mirror Bloom vertical slice',
-            en: 'Mirror Bloom vertical slice'
-        },
-        description: {
-            hu: 'A stealth loop és a fényre reagáló AI elérte a showcase szintet.',
-            en: 'Stealth loop plus light-reactive AI reached showcase quality.'
-        }
-    },
-    {
-        year: '2025',
-        title: {
-            hu: 'BlackCat Glass rebrand',
-            en: 'BlackCat Glass rebrand'
-        },
-        description: {
-            hu: 'Bonifác és Kristóf egyesítette stúdióit, megszületett a neon noir identitás.',
-            en: 'Bonifác and Kristóf merged their studios and shaped the neon noir identity.'
-        }
-    },
-    {
-        year: '2024',
-        title: {
-            hu: 'Első lopakodó prototípus',
-            en: 'First stealth prototype'
-        },
-        description: {
-            hu: 'Üveg shadereken kísérleteztünk, amelyből született a Mirror Bloom magja.',
-            en: 'Glass shaders experiments that seeded the core of Mirror Bloom.'
-        }
-    }
+    { year: '2026', title: 'timeline.0.title', description: 'timeline.0.description' },
+    { year: '2025', title: 'timeline.1.title', description: 'timeline.1.description' },
+    { year: '2024', title: 'timeline.2.title', description: 'timeline.2.description' }
 ];
 const teamProfiles = [
     {
-        name: 'Pónya Bonifác',
-        title: {
-            hu: 'Creative director & audio alkimista',
-            en: 'Creative director & audio alchemist'
-        },
-        bio: {
-            hu: 'Bonifác építi a lopakodó ritmusokat és moduláris soundtrackeket, ahol a zaj is mechanika.',
-            en: 'Bonifác designs stealth rhythms and modular soundtracks where noise itself becomes a mechanic.'
-        },
-        specialties: [
-            { hu: 'Procedurális vizuál', en: 'Procedural visuals' },
-            { hu: 'Moduláris ambient', en: 'Modular ambient' },
-            { hu: 'Narratív UX', en: 'Narrative UX' }
-        ],
-        highlight: {
-            hu: 'Ő felügyeli a Mirror Bloom vert slice tempóját és az audio-driven AI-t.',
-            en: 'Leads the Mirror Bloom vertical slice pacing plus the audio-driven AI.'
-        }
+        name: 'team.0.name',
+        title: 'team.0.title',
+        bio: 'team.0.bio',
+        specialties: ['team.0.spec.0', 'team.0.spec.1', 'team.0.spec.2'],
+        highlight: 'team.0.highlight'
     },
     {
-        name: 'Mercz Kristóf',
-        title: {
-            hu: 'Lead artist & glass designer',
-            en: 'Lead artist & glass designer'
-        },
-        bio: {
-            hu: 'Kristóf kézzel festett textúrákból és üveg szimulációból épít neon noir tereket.',
-            en: 'Kristóf sculpts neon noir spaces from hand-painted textures and glass simulation.'
-        },
-        specialties: [
-            { hu: 'Üveg shader kutatás', en: 'Glass shader research' },
-            { hu: 'Karakter koncepció', en: 'Character concept' },
-            { hu: 'Devlog vizuál', en: 'Devlog visuals' }
-        ],
-        highlight: {
-            hu: 'Ő felel a Glass Saints antagonista frakciójának vizuális mitológiájáért.',
-            en: 'Shapes the visual mythology of the Glass Saints antagonist faction.'
-        }
+        name: 'team.1.name',
+        title: 'team.1.title',
+        bio: 'team.1.bio',
+        specialties: ['team.1.spec.0', 'team.1.spec.1', 'team.1.spec.2'],
+        highlight: 'team.1.highlight'
+    },
+    {
+        name: 'team.2.name',
+        title: 'team.2.title',
+        bio: 'team.2.bio',
+        specialties: ['team.2.spec.0', 'team.2.spec.1', 'team.2.spec.2'],
+        highlight: 'team.2.highlight'
     }
 ];
 const contactProfiles = [
     {
-        name: 'Pónya Bonifác',
-        role: {
-            hu: 'Creative director',
-            en: 'Creative director'
-        },
-        focus: {
-            hu: 'Partnerség, soundtrack, produkció',
-            en: 'Partnerships, soundtrack, production'
-        },
+        name: 'contact.0.name',
+        role: 'contact.0.role',
+        focus: 'contact.0.focus',
         channels: [
-            {
-                label: { hu: 'Email', en: 'Email' },
-                value: 'hello@blackcatglass.studio',
-                href: 'mailto:hello@blackcatglass.studio',
-                hint: { hu: '24 órán belül válaszol', en: 'Replies within 24 hours' }
-            },
-            {
-                label: { hu: 'Instagram', en: 'Instagram' },
-                value: '@bonifac.codeslight',
-                href: 'https://instagram.com/bonifac.codeslight',
-                hint: { hu: 'Live dev sztorik és soundtrack sneak peek', en: 'Live dev stories & soundtrack sneak peeks' }
-            }
+            { label: 'contact.0.channels.0.label', value: 'hello@blackcatglass.studio', href: 'mailto:hello@blackcatglass.studio', hint: 'contact.0.channels.0.hint' },
+            { label: 'contact.0.channels.1.label', value: '@bonifac.codeslight', href: 'https://instagram.com/bonifac.p', hint: 'contact.0.channels.1.hint' }
         ]
     },
     {
-        name: 'Mercz Kristóf',
-        role: {
-            hu: 'Lead artist',
-            en: 'Lead artist'
-        },
-        focus: {
-            hu: 'Koncept art, vizuális együttműködés',
-            en: 'Concept art, visual collaborations'
-        },
+        name: 'contact.1.name',
+        role: 'contact.1.role',
+        focus: 'contact.1.focus',
         channels: [
-            {
-                label: { hu: 'Email', en: 'Email' },
-                value: 'kristof@blackcatglass.studio',
-                href: 'mailto:kristof@blackcatglass.studio',
-                hint: { hu: 'Moodboardok, textúrák, installációk', en: 'Moodboards, textures, installations' }
-            },
-            {
-                label: { hu: 'Instagram', en: 'Instagram' },
-                value: '@mercz.glass',
-                href: 'https://instagram.com/mercz.glass',
-                hint: { hu: 'Naponta friss concept drop', en: 'Daily concept drops' }
-            }
+            { label: 'contact.1.channels.0.label', value: 'kristof@blackcatglass.studio', href: 'mailto:kristof@blackcatglass.studio', hint: 'contact.1.channels.0.hint' },
+            { label: 'contact.1.channels.1.label', value: '@mercz.glass', href: 'https://instagram.com/mercz.kristof', hint: 'contact.1.channels.1.hint' }
+        ]
+    },
+    {
+        name: 'contact.2.name',
+        role: 'contact.2.role',
+        focus: 'contact.2.focus',
+        channels: [
+            { label: 'contact.2.channels.0.label', value: 'mark@blackcatglass.studio', href: 'mailto:mark@blackcatglass.studio', hint: 'contact.2.channels.0.hint' },
+            { label: 'contact.2.channels.1.label', value: '@cseh.mark', href: 'https://instagram.com/mark.cz_', hint: 'contact.2.channels.1.hint' }
         ]
     }
 ];
 const studioSchedule = {
     windows: [
-        {
-            label: { hu: 'Hétfő – Szerda', en: 'Mon – Wed' },
-            detail: {
-                hu: 'Mirror Bloom lopakodó pályák, AI tuning és refraction QA.',
-                en: 'Mirror Bloom stealth levels, AI tuning, and refraction QA.'
-            }
-        },
-        {
-            label: { hu: 'Csütörtök', en: 'Thursday' },
-            detail: {
-                hu: 'Glass Saints art review + soundtrack mix session.',
-                en: 'Glass Saints art review + soundtrack mix session.'
-            }
-        },
-        {
-            label: { hu: 'Péntek', en: 'Friday' },
-            detail: {
-                hu: 'Közösségi build, devlog felvétel és Instagram Q&A.',
-                en: 'Community build, devlog recording, and Instagram Q&A.'
-            }
-        }
+        { label: 'schedule.windows.0.label', detail: 'schedule.windows.0.detail' },
+        { label: 'schedule.windows.1.label', detail: 'schedule.windows.1.detail' },
+        { label: 'schedule.windows.2.label', detail: 'schedule.windows.2.detail' }
     ],
-    note: {
-        hu: 'Szombat-vasárnap csendes prototipelés – ilyenkor a Discord a legjobb csatorna.',
-        en: 'Weekends are for quiet prototyping – Discord is best during those hours.'
-    }
+    note: 'schedule.note'
 };
 const clampProgress = (value) => Math.max(0, Math.min(100, value));
 const createElement = (tag, className, text) => {
@@ -439,7 +198,9 @@ const resolveHrefToPage = (href) => {
     }
     try {
         const url = new URL(href, window.location.origin);
-        const fileName = url.pathname.split('/').pop()?.toLowerCase() ?? '';
+        const normalizedPath = url.pathname.replace(/\/+$/, '').toLowerCase();
+        const pathSegment = normalizedPath.split('/').pop() ?? '';
+        const fileName = pathSegment || 'index';
         return fileAliasMap[fileName];
     }
     catch (error) {
@@ -474,10 +235,11 @@ const formatDate = (isoString) => {
         return isoString;
     }
 };
-const getLocalizedText = (text, locale = currentLocale) => text[locale] ?? text.hu;
 const translate = (key, vars) => {
-    const table = translations[currentLocale] ?? translations.hu;
-    const template = table[key] ?? translations.hu[key] ?? key;
+    const localeTable = translations[currentLocale] ?? {};
+    const enTable = translations.en ?? {};
+    const huTable = translations.hu ?? {};
+    const template = localeTable[key] ?? enTable[key] ?? huTable[key] ?? key;
     if (!vars) {
         return template;
     }
@@ -537,9 +299,9 @@ const renderGoals = () => {
     const container = document.querySelector('[data-goal-list]');
     renderCollection(container, goals, goal => {
         const card = createElement('article', 'card goal-card');
-        card.appendChild(createElement('span', 'badge', getLocalizedText(goal.focus)));
-        card.appendChild(createElement('h3', '', getLocalizedText(goal.title)));
-        card.appendChild(createElement('p', '', getLocalizedText(goal.detail)));
+        card.appendChild(createElement('span', 'badge', translate(goal.focus)));
+        card.appendChild(createElement('h3', '', translate(goal.title)));
+        card.appendChild(createElement('p', '', translate(goal.detail)));
         const progress = createElement('div', 'progress');
         const bar = createElement('div', 'progress-bar');
         bar.style.width = `${clampProgress(goal.progress)}%`;
@@ -552,9 +314,9 @@ const renderMetrics = () => {
     const container = document.querySelector('[data-metric-board]');
     renderCollection(container, metrics, metric => {
         const stat = createElement('article', 'stat-card');
-        stat.appendChild(createElement('p', 'stat-label', getLocalizedText(metric.label)));
+        stat.appendChild(createElement('p', 'stat-label', translate(metric.label)));
         stat.appendChild(createElement('p', 'stat-value', metric.value));
-        stat.appendChild(createElement('p', 'stat-note', getLocalizedText(metric.note)));
+        stat.appendChild(createElement('p', 'stat-note', translate(metric.note)));
         return stat;
     });
 };
@@ -565,10 +327,10 @@ const renderNews = () => {
         const card = createElement('li', 'news-card');
         const meta = createElement('div', 'news-meta');
         meta.appendChild(createElement('span', 'news-date', formatDate(item.date)));
-        item.tags.forEach(tag => meta.appendChild(createElement('span', 'badge', getLocalizedText(tag))));
+        item.tags.forEach(tag => meta.appendChild(createElement('span', 'badge', translate(tag))));
         card.appendChild(meta);
-        card.appendChild(createElement('h3', '', getLocalizedText(item.title)));
-        card.appendChild(createElement('p', '', getLocalizedText(item.summary)));
+        card.appendChild(createElement('h3', '', translate(item.title)));
+        card.appendChild(createElement('p', '', translate(item.summary)));
         if (item.link) {
             const link = createElement('a', 'btn ghost', translate('common.readMore'));
             link.setAttribute('href', item.link);
@@ -585,8 +347,8 @@ const renderTimeline = () => {
         const item = createElement('li', 'timeline-item');
         item.appendChild(createElement('span', 'timeline-year', entry.year));
         const content = createElement('div', 'timeline-content');
-        content.appendChild(createElement('h3', '', getLocalizedText(entry.title)));
-        content.appendChild(createElement('p', '', getLocalizedText(entry.description)));
+        content.appendChild(createElement('h3', '', translate(entry.title)));
+        content.appendChild(createElement('p', '', translate(entry.description)));
         item.appendChild(content);
         return item;
     });
@@ -595,13 +357,13 @@ const renderTeamProfiles = () => {
     const grid = document.querySelector('[data-team-profiles]');
     renderCollection(grid, teamProfiles, profile => {
         const card = createElement('article', 'card team-card');
-        card.appendChild(createElement('h3', '', profile.name));
-        card.appendChild(createElement('p', 'team-role', getLocalizedText(profile.title)));
-        card.appendChild(createElement('p', '', getLocalizedText(profile.bio)));
+        card.appendChild(createElement('h3', '', translate(profile.name)));
+        card.appendChild(createElement('p', 'team-role', translate(profile.title)));
+        card.appendChild(createElement('p', '', translate(profile.bio)));
         const specialtyList = createElement('div', 'tag-rail');
-        profile.specialties.forEach(spec => specialtyList.appendChild(createElement('span', 'badge', getLocalizedText(spec))));
+        profile.specialties.forEach(spec => specialtyList.appendChild(createElement('span', 'badge', translate(spec))));
         card.appendChild(specialtyList);
-        card.appendChild(createElement('p', 'team-highlight', getLocalizedText(profile.highlight)));
+        card.appendChild(createElement('p', 'team-highlight', translate(profile.highlight)));
         return card;
     });
 };
@@ -609,12 +371,12 @@ const renderContacts = () => {
     const grid = document.querySelector('[data-contact-list]');
     renderCollection(grid, contactProfiles, profile => {
         const card = createElement('article', 'card contact-card');
-        card.appendChild(createElement('h3', '', profile.name));
-        card.appendChild(createElement('p', 'contact-role', getLocalizedText(profile.role)));
-        card.appendChild(createElement('p', 'contact-focus', getLocalizedText(profile.focus)));
+        card.appendChild(createElement('h3', '', translate(profile.name)));
+        card.appendChild(createElement('p', 'contact-role', translate(profile.role)));
+        card.appendChild(createElement('p', 'contact-focus', translate(profile.focus)));
         profile.channels.forEach(channel => {
             const block = createElement('div', 'contact-channel');
-            block.appendChild(createElement('p', 'contact-channel-label', getLocalizedText(channel.label)));
+            block.appendChild(createElement('p', 'contact-channel-label', translate(channel.label)));
             const link = createElement('a', 'contact-link', channel.value);
             link.setAttribute('href', channel.href);
             if (channel.href.startsWith('http')) {
@@ -622,7 +384,7 @@ const renderContacts = () => {
                 link.setAttribute('rel', 'noopener noreferrer');
             }
             block.appendChild(link);
-            block.appendChild(createElement('p', 'contact-hint', getLocalizedText(channel.hint)));
+            block.appendChild(createElement('p', 'contact-hint', translate(channel.hint)));
             card.appendChild(block);
         });
         return card;
@@ -638,12 +400,12 @@ const renderScheduleCard = () => {
     const list = createElement('ul', 'schedule-list');
     studioSchedule.windows.forEach(window => {
         const item = createElement('li', 'schedule-row');
-        item.appendChild(createElement('strong', '', getLocalizedText(window.label)));
-        item.appendChild(createElement('span', '', getLocalizedText(window.detail)));
+        item.appendChild(createElement('strong', '', translate(window.label)));
+        item.appendChild(createElement('span', '', translate(window.detail)));
         list.appendChild(item);
     });
     card.appendChild(list);
-    card.appendChild(createElement('p', 'schedule-note', getLocalizedText(studioSchedule.note)));
+    card.appendChild(createElement('p', 'schedule-note', translate(studioSchedule.note)));
     host.appendChild(card);
 };
 const renderDynamicSections = () => {
@@ -716,4 +478,13 @@ const init = () => {
     wireNewsletterForm();
     updateYear();
 };
-init();
+const bootstrap = async () => {
+    try {
+        await loadTranslations();
+    }
+    catch (error) {
+        console.error('Unable to load translations', error);
+    }
+    init();
+};
+void bootstrap();
