@@ -101,13 +101,13 @@ const timelineEntries = [
     { year: '2025', title: 'timeline.1.title', description: 'timeline.1.description' },
     { year: '2020', title: 'timeline.2.title', description: 'timeline.2.description' }
 ];
-const teamProfiles = [
+const profileCards = [
     {
-        name: 'team.0.name',
-        title: 'team.0.title',
-        bio: 'team.0.bio',
-        specialties: ['team.0.spec.0', 'team.0.spec.1', 'team.0.spec.2'],
-        highlight: 'team.0.highlight'
+        name: 'profile.0.name',
+        title: 'profile.0.title',
+        bio: 'profile.0.bio',
+        specialties: ['profile.0.spec.0', 'profile.0.spec.1', 'profile.0.spec.2'],
+        highlight: 'profile.0.highlight'
     }
 ];
 const contactProfiles = [
@@ -121,7 +121,7 @@ const contactProfiles = [
         ]
     }
 ];
-const studioSchedule = {
+const portfolioContext = {
     windows: [
         { label: 'schedule.windows.0.label', detail: 'schedule.windows.0.detail' },
         { label: 'schedule.windows.1.label', detail: 'schedule.windows.1.detail' },
@@ -380,17 +380,17 @@ const renderTimeline = () => {
         return item;
     });
 };
-const renderTeamProfiles = () => {
-    const grid = document.querySelector('[data-team-profiles]');
-    renderCollection(grid, teamProfiles, profile => {
-        const card = createElement('article', 'card team-card');
+const renderProfileCards = () => {
+    const grid = document.querySelector('[data-profile-cards]');
+    renderCollection(grid, profileCards, profile => {
+        const card = createElement('article', 'card profile-card');
         card.appendChild(createElement('h3', '', translate(profile.name)));
-        card.appendChild(createElement('p', 'team-role', translate(profile.title)));
+        card.appendChild(createElement('p', 'profile-role', translate(profile.title)));
         card.appendChild(createElement('p', '', translate(profile.bio)));
         const specialtyList = createElement('div', 'tag-rail');
         profile.specialties.forEach(spec => specialtyList.appendChild(createElement('span', 'badge', translate(spec))));
         card.appendChild(specialtyList);
-        card.appendChild(createElement('p', 'team-highlight', translate(profile.highlight)));
+        card.appendChild(createElement('p', 'profile-highlight', translate(profile.highlight)));
         return card;
     });
 };
@@ -425,14 +425,14 @@ const renderScheduleCard = () => {
     host.innerHTML = '';
     const card = createElement('article', 'card schedule-card');
     const list = createElement('div', 'schedule-list');
-    studioSchedule.windows.forEach(window => {
+    portfolioContext.windows.forEach(window => {
         const item = createElement('div', 'schedule-row');
         item.appendChild(createElement('span', 'schedule-label', translate(window.label)));
         item.appendChild(createElement('p', 'schedule-detail', translate(window.detail)));
         list.appendChild(item);
     });
     card.appendChild(list);
-    card.appendChild(createElement('p', 'schedule-note', translate(studioSchedule.note)));
+    card.appendChild(createElement('p', 'schedule-note', translate(portfolioContext.note)));
     host.appendChild(card);
 };
 const renderDynamicSections = () => {
@@ -440,32 +440,9 @@ const renderDynamicSections = () => {
     renderMetrics();
     renderNews();
     renderTimeline();
-    renderTeamProfiles();
+    renderProfileCards();
     renderContacts();
     renderScheduleCard();
-};
-const wireNewsletterForm = () => {
-    const form = document.querySelector('[data-newsletter]');
-    if (!form) {
-        return;
-    }
-    const input = form.querySelector('input[type="email"]');
-    const hint = form.parentElement?.querySelector('.form-hint');
-    form.addEventListener('submit', event => {
-        event.preventDefault();
-        if (!input) {
-            return;
-        }
-        if (!input.value.trim() || !input.checkValidity()) {
-            input.reportValidity();
-            return;
-        }
-        if (hint) {
-            hint.textContent = translate('news.newsletter.success', { email: input.value.trim() });
-            hint.classList.add('success');
-        }
-        form.reset();
-    });
 };
 const updateYear = () => {
     const yearEl = document.querySelector('[data-current-year]');
@@ -505,7 +482,6 @@ const init = () => {
     initMobileNavigation();
     initLanguageSwitcher();
     renderDynamicSections();
-    wireNewsletterForm();
     updateYear();
 };
 const bootstrap = async () => {
