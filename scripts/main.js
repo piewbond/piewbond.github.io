@@ -43,7 +43,7 @@ const loadTranslations = async () => {
     });
     translations = nextTranslations;
 };
-const localeStorageKey = 'bcg-locale';
+const localeStorageKey = 'piewbond-locale';
 const localeFormatMap = {
     hu: 'hu-HU',
     en: 'en-GB'
@@ -52,52 +52,54 @@ const goals = [
     {
         title: 'goals.0.title',
         detail: 'goals.0.detail',
-        progress: 72,
+        progress: 70,
         focus: 'goals.0.focus'
     },
     {
         title: 'goals.1.title',
         detail: 'goals.1.detail',
-        progress: 48,
+        progress: 45,
         focus: 'goals.1.focus'
     },
     {
         title: 'goals.2.title',
         detail: 'goals.2.detail',
-        progress: 31,
+        progress: 30,
         focus: 'goals.2.focus'
     }
 ];
 const metrics = [
-    { label: 'metrics.0.label', value: '3', note: 'metrics.0.note' },
-    { label: 'metrics.1.label', value: '120+', note: 'metrics.1.note' },
-    { label: 'metrics.2.label', value: '5', note: 'metrics.2.note' }
+    { label: 'metrics.0.label', value: '11', note: 'metrics.0.note' },
+    { label: 'metrics.1.label', value: '2020', note: 'metrics.1.note' },
+    { label: 'metrics.2.label', value: 'Game dev', note: 'metrics.2.note' }
 ];
 const newsItems = [
     {
-        date: '2026-02-18',
+        date: '2025-09-12',
         title: 'news.items.0.title',
         summary: 'news.items.0.summary',
         tags: ['news.items.0.tags.0', 'news.items.0.tags.1'],
-        link: 'https://blackcatglass.studio/devlog/mirror-bloom-12'
+        link: 'https://github.com/piewbond/project-kiddo'
     },
     {
-        date: '2026-02-05',
+        date: '2026-02-02',
         title: 'news.items.1.title',
         summary: 'news.items.1.summary',
-        tags: ['news.items.1.tags.0', 'news.items.1.tags.1']
+        tags: ['news.items.1.tags.0', 'news.items.1.tags.1'],
+        link: 'https://github.com/piewbond/cyberpunk-shootout'
     },
     {
-        date: '2026-01-22',
+        date: '2024-01-06',
         title: 'news.items.2.title',
         summary: 'news.items.2.summary',
-        tags: ['news.items.2.tags.0', 'news.items.2.tags.1']
+        tags: ['news.items.2.tags.0', 'news.items.2.tags.1'],
+        link: 'https://github.com/piewbond/FACEIT-HELPER'
     }
 ];
 const timelineEntries = [
     { year: '2026', title: 'timeline.0.title', description: 'timeline.0.description' },
     { year: '2025', title: 'timeline.1.title', description: 'timeline.1.description' },
-    { year: '2024', title: 'timeline.2.title', description: 'timeline.2.description' }
+    { year: '2020', title: 'timeline.2.title', description: 'timeline.2.description' }
 ];
 const teamProfiles = [
     {
@@ -106,20 +108,6 @@ const teamProfiles = [
         bio: 'team.0.bio',
         specialties: ['team.0.spec.0', 'team.0.spec.1', 'team.0.spec.2'],
         highlight: 'team.0.highlight'
-    },
-    {
-        name: 'team.1.name',
-        title: 'team.1.title',
-        bio: 'team.1.bio',
-        specialties: ['team.1.spec.0', 'team.1.spec.1', 'team.1.spec.2'],
-        highlight: 'team.1.highlight'
-    },
-    {
-        name: 'team.2.name',
-        title: 'team.2.title',
-        bio: 'team.2.bio',
-        specialties: ['team.2.spec.0', 'team.2.spec.1', 'team.2.spec.2'],
-        highlight: 'team.2.highlight'
     }
 ];
 const contactProfiles = [
@@ -128,26 +116,8 @@ const contactProfiles = [
         role: 'contact.0.role',
         focus: 'contact.0.focus',
         channels: [
-            { label: 'contact.0.channels.0.label', value: 'hello@blackcatglass.studio', href: 'mailto:hello@blackcatglass.studio', hint: 'contact.0.channels.0.hint' },
-            { label: 'contact.0.channels.1.label', value: '@bonifac.codeslight', href: 'https://instagram.com/bonifac.p', hint: 'contact.0.channels.1.hint' }
-        ]
-    },
-    {
-        name: 'contact.1.name',
-        role: 'contact.1.role',
-        focus: 'contact.1.focus',
-        channels: [
-            { label: 'contact.1.channels.0.label', value: 'kristof@blackcatglass.studio', href: 'mailto:kristof@blackcatglass.studio', hint: 'contact.1.channels.0.hint' },
-            { label: 'contact.1.channels.1.label', value: '@mercz.glass', href: 'https://instagram.com/mercz.kristof', hint: 'contact.1.channels.1.hint' }
-        ]
-    },
-    {
-        name: 'contact.2.name',
-        role: 'contact.2.role',
-        focus: 'contact.2.focus',
-        channels: [
-            { label: 'contact.2.channels.0.label', value: 'mark@blackcatglass.studio', href: 'mailto:mark@blackcatglass.studio', hint: 'contact.2.channels.0.hint' },
-            { label: 'contact.2.channels.1.label', value: '@cseh.mark', href: 'https://instagram.com/mark.cz_', hint: 'contact.2.channels.1.hint' }
+            { label: 'contact.0.channels.0.label', value: 'github.com/piewbond', href: 'https://github.com/piewbond', hint: 'contact.0.channels.0.hint' },
+            { label: 'contact.0.channels.1.label', value: 'piewbond.github.io', href: 'https://github.com/piewbond/piewbond.github.io', hint: 'contact.0.channels.1.hint' }
         ]
     }
 ];
