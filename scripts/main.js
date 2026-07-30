@@ -52,26 +52,20 @@ const goals = [
     {
         title: 'goals.0.title',
         detail: 'goals.0.detail',
-        progress: 70,
+        progress: 75,
         focus: 'goals.0.focus'
     },
     {
         title: 'goals.1.title',
         detail: 'goals.1.detail',
-        progress: 45,
+        progress: 35,
         focus: 'goals.1.focus'
-    },
-    {
-        title: 'goals.2.title',
-        detail: 'goals.2.detail',
-        progress: 30,
-        focus: 'goals.2.focus'
     }
 ];
 const metrics = [
-    { label: 'metrics.0.label', value: '11', note: 'metrics.0.note' },
-    { label: 'metrics.1.label', value: '2020', note: 'metrics.1.note' },
-    { label: 'metrics.2.label', value: 'Game dev', note: 'metrics.2.note' }
+    { label: 'metrics.0.label', value: '2', note: 'metrics.0.note' },
+    { label: 'metrics.1.label', value: 'Kiddo', note: 'metrics.1.note' },
+    { label: 'metrics.2.label', value: 'Soon', note: 'metrics.2.note' }
 ];
 const newsItems = [
     {
@@ -88,18 +82,11 @@ const newsItems = [
         tags: ['news.items.1.tags.0', 'news.items.1.tags.1'],
         link: 'https://github.com/piewbond/cyberpunk-shootout'
     },
-    {
-        date: '2024-01-06',
-        title: 'news.items.2.title',
-        summary: 'news.items.2.summary',
-        tags: ['news.items.2.tags.0', 'news.items.2.tags.1'],
-        link: 'https://github.com/piewbond/FACEIT-HELPER'
-    }
 ];
 const timelineEntries = [
-    { year: '2026', title: 'timeline.0.title', description: 'timeline.0.description' },
-    { year: '2025', title: 'timeline.1.title', description: 'timeline.1.description' },
-    { year: '2020', title: 'timeline.2.title', description: 'timeline.2.description' }
+    { year: 'Now', title: 'timeline.0.title', description: 'timeline.0.description' },
+    { year: 'Next', title: 'timeline.1.title', description: 'timeline.1.description' },
+    { year: 'Later', title: 'timeline.2.title', description: 'timeline.2.description' }
 ];
 const profileCards = [
     {
@@ -107,7 +94,17 @@ const profileCards = [
         title: 'profile.0.title',
         bio: 'profile.0.bio',
         specialties: ['profile.0.spec.0', 'profile.0.spec.1', 'profile.0.spec.2'],
-        highlight: 'profile.0.highlight'
+        highlight: 'profile.0.highlight',
+        imageSrc: '/me.png',
+        initials: 'BP'
+    },
+    {
+        name: 'profile.1.name',
+        title: 'profile.1.title',
+        bio: 'profile.1.bio',
+        specialties: ['profile.1.spec.0', 'profile.1.spec.1', 'profile.1.spec.2'],
+        highlight: 'profile.1.highlight',
+        initials: 'KM'
     }
 ];
 const contactProfiles = [
@@ -116,8 +113,8 @@ const contactProfiles = [
         role: 'contact.0.role',
         focus: 'contact.0.focus',
         channels: [
-            { label: 'contact.0.channels.0.label', value: 'github.com/piewbond', href: 'https://github.com/piewbond', hint: 'contact.0.channels.0.hint' },
-            { label: 'contact.0.channels.1.label', value: 'piewbond.github.io', href: 'https://github.com/piewbond/piewbond.github.io', hint: 'contact.0.channels.1.hint' }
+            { label: 'contact.0.channels.0.label', value: 'github.com/piewbond/project-kiddo', href: 'https://github.com/piewbond/project-kiddo', hint: 'contact.0.channels.0.hint' },
+            { label: 'contact.0.channels.1.label', value: 'github.com/piewbond/cyberpunk-shootout', href: 'https://github.com/piewbond/cyberpunk-shootout', hint: 'contact.0.channels.1.hint' }
         ]
     }
 ];
@@ -384,6 +381,15 @@ const renderProfileCards = () => {
     const grid = document.querySelector('[data-profile-cards]');
     renderCollection(grid, profileCards, profile => {
         const card = createElement('article', 'card profile-card');
+        if (profile.imageSrc) {
+            const image = createElement('img', 'profile-photo');
+            image.setAttribute('src', profile.imageSrc);
+            image.setAttribute('alt', translate('profile.photoAlt', { name: translate(profile.name) }));
+            card.appendChild(image);
+        }
+        else {
+            card.appendChild(createElement('div', 'profile-photo profile-photo-placeholder', profile.initials));
+        }
         card.appendChild(createElement('h3', '', translate(profile.name)));
         card.appendChild(createElement('p', 'profile-role', translate(profile.title)));
         card.appendChild(createElement('p', '', translate(profile.bio)));

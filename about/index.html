@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         (function () {
             try {
-                if (window.localStorage.getItem('piewbond-locale') === 'en') {
+                if (window.localStorage.getItem('piewbond-locale') === 'hu') {
                     document.documentElement.classList.add('locale-en-loading-nav');
                 }
             } catch (error) {
@@ -14,22 +14,22 @@
             }
         })();
     </script>
-    <title>PiewBond – Rólam</title>
+    <title>Black Cat Glass – Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300;600&family=Merriweather:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body data-page="about">
-    <noscript class="noscript-banner" data-i18n="common.noscript">Ez az oldal TypeScript alapú funkciókat használ, ezért kapcsold be a JavaScriptet a teljes élményhez.</noscript>
+    <noscript class="noscript-banner" data-i18n="common.noscript">This site uses a small JavaScript layer for language switching and project cards.</noscript>
     <header class="site-header">
-        <div class="logo" aria-label="PiewBond">PiewBond</div>
-        <button class="nav-toggle" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="main-navigation">☰</button>
-        <nav id="main-navigation" class="main-nav" aria-label="Fő navigáció">
-            <a class="nav-link" href="/home/" data-i18n="nav.home">Kezdőlap</a>
-            <a class="nav-link" href="/about/" data-i18n="nav.about">Rólam</a>
-            <a class="nav-link" href="/news/" data-i18n="nav.news">Projektek</a>
-            <a class="nav-link" href="/contact/" data-i18n="nav.contact">Kapcsolat</a>
+        <div class="logo" aria-label="Black Cat Glass">Black Cat Glass</div>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation">☰</button>
+        <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
+            <a class="nav-link" href="/home/" data-i18n="nav.home">Home</a>
+            <a class="nav-link" href="/about/" data-i18n="nav.about">Studio</a>
+            <a class="nav-link" href="/news/" data-i18n="nav.news">Games</a>
+            <a class="nav-link" href="/contact/" data-i18n="nav.contact">Contact</a>
         </nav>
-        <button class="nav-backdrop" type="button" aria-label="Menü bezárása"></button>
+        <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
         <div class="lang-switch" role="group" aria-label="Language switch">
             <button class="lang-btn" data-lang="hu">HU</button>
             <button class="lang-btn" data-lang="en">EN</button>
@@ -38,55 +38,63 @@
 
     <main class="page">
         <section class="hero">
-            <p class="eyebrow" data-i18n="about.hero.eyebrow">Stúdió portré</p>
-            <h1 data-i18n="about.hero.title">Pónya Bonifác / PiewBond</h1>
-            <p class="page-lead" data-i18n="about.hero.lead">Bonifác játékprojektekre és technikai kísérletekre fókuszáló fejlesztő.</p>
+            <p class="eyebrow" data-i18n="about.hero.eyebrow">Studio</p>
+            <h1 data-i18n="about.hero.title">Black Cat Glass</h1>
+            <p class="page-lead" data-i18n="about.hero.lead">Black Cat Glass is a small indie game dev studio currently focused on Kiddo.</p>
         </section>
 
         <section class="section">
             <div class="section-heading">
-                <h2 data-i18n="about.mission.heading">Manifesztó</h2>
-                <p data-i18n="about.mission.subheading">Kicsi, őszinte portfólió egy kitalált stúdióoldal helyett.</p>
+                <h2 data-i18n="about.mission.heading">What we make</h2>
+                <p data-i18n="about.mission.subheading">Dark game projects built by a small team.</p>
             </div>
             <div class="text-columns">
-                <p data-i18n="about.mission.body1">A cél, hogy a publikus munka könnyen átlátható legyen: játékprototípusok, tanulmányi feladatok, kísérletek és segédeszközök.</p>
-                <p data-i18n="about.mission.body2">Az oldal nem állít kitalált csapatot, híreket, e-mail címeket vagy ellenőrizhetetlen projekteket.</p>
+                <p data-i18n="about.mission.body1">The studio is shaped around compact, playable experiments: systems-first games, moody spaces, and ideas that feel a little hostile in the best way.</p>
+                <p data-i18n="about.mission.body2">Public pages only show projects and information meant to be shared. Internal repositories, revenue, and business plans stay off the site.</p>
             </div>
         </section>
 
         <section class="section">
             <div class="section-heading">
-                <h2 data-i18n="about.team.heading">Profil</h2>
+                <h2 data-i18n="about.team.heading">Team</h2>
+                <p data-i18n="about.team.subheading">Short role cards for the people building the games.</p>
             </div>
             <div class="profile-grid" data-profile-cards>
                 <article class="card profile-card">
-                    <h3>PiewBond</h3>
+                    <img class="profile-photo" src="/me.png" alt="Bonifác Ponya team portrait">
+                    <h3>Bonifác Ponya</h3>
+                    <p class="profile-role">Developer</p>
+                </article>
+                <article class="card profile-card">
+                    <div class="profile-photo profile-photo-placeholder">KM</div>
+                    <h3>Kristóf Mercz</h3>
+                    <p class="profile-role">Artist</p>
                 </article>
             </div>
         </section>
 
         <section class="section">
             <div class="section-heading">
-                <h2 data-i18n="about.timeline.heading">Mérföldkövek</h2>
+                <h2 data-i18n="about.timeline.heading">Roadmap</h2>
             </div>
             <ol class="timeline" data-timeline>
                 <li class="timeline-item">
-                    <span class="timeline-year">2024</span>
+                    <span class="timeline-year">Now</span>
                     <div class="timeline-content">
-                        <h3 data-i18n="about.timeline.placeholder.title">PiewBond portfólió</h3>
+                        <h3 data-i18n="about.timeline.placeholder.title">Black Cat Glass</h3>
                     </div>
                 </li>
             </ol>
         </section>
 
         <section class="section quote">
-            <blockquote data-i18n="about.quote">„Nézd meg a repositorykat, ha látni szeretnéd, hogyan alakult a játékfejlesztői utam.”</blockquote>
-            <cite data-i18n="about.quote.author">Pónya Bonifác</cite>
+            <blockquote data-i18n="about.quote">“Personality experiment. It may not like you, and you may not like it. For games, we want that same uneasy energy: playable, dark, and a little sharp.”</blockquote>
+            <cite data-i18n="about.quote.author">Black Cat Glass</cite>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>© <span data-current-year>2026</span> PiewBond · <span data-i18n="common.rights">Minden jog fenntartva.</span></p>
+        <p>© <span data-current-year>2026</span> Black Cat Glass · <span data-i18n="common.rights">All rights reserved.</span></p>
     </footer>
 
     <script type="module" defer src="/scripts/main.js"></script>

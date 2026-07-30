@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         (function () {
             try {
-                if (window.localStorage.getItem('piewbond-locale') === 'en') {
+                if (window.localStorage.getItem('piewbond-locale') === 'hu') {
                     document.documentElement.classList.add('locale-en-loading-nav');
                 }
             } catch (error) {
@@ -14,22 +14,22 @@
             }
         })();
     </script>
-    <title>PiewBond – Projektek</title>
+    <title>Black Cat Glass – Games</title>
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300;600&family=Merriweather:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 </head>
 <body data-page="news">
-    <noscript class="noscript-banner" data-i18n="common.noscript">Ez az oldal TypeScript alapú funkciókat használ, ezért kapcsold be a JavaScriptet a teljes élményhez.</noscript>
+    <noscript class="noscript-banner" data-i18n="common.noscript">This site uses a small JavaScript layer for language switching and project cards.</noscript>
     <header class="site-header">
-        <div class="logo" aria-label="PiewBond">PiewBond</div>
-        <button class="nav-toggle" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="main-navigation">☰</button>
-        <nav id="main-navigation" class="main-nav" aria-label="Fő navigáció">
-            <a class="nav-link" href="/home/" data-i18n="nav.home">Kezdőlap</a>
-            <a class="nav-link" href="/about/" data-i18n="nav.about">Rólam</a>
-            <a class="nav-link" href="/news/" data-i18n="nav.news">Projektek</a>
-            <a class="nav-link" href="/contact/" data-i18n="nav.contact">Kapcsolat</a>
+        <div class="logo" aria-label="Black Cat Glass">Black Cat Glass</div>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation">☰</button>
+        <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
+            <a class="nav-link" href="/home/" data-i18n="nav.home">Home</a>
+            <a class="nav-link" href="/about/" data-i18n="nav.about">Studio</a>
+            <a class="nav-link" href="/news/" data-i18n="nav.news">Games</a>
+            <a class="nav-link" href="/contact/" data-i18n="nav.contact">Contact</a>
         </nav>
-        <button class="nav-backdrop" type="button" aria-label="Menü bezárása"></button>
+        <button class="nav-backdrop" type="button" aria-label="Close menu"></button>
         <div class="lang-switch" role="group" aria-label="Language switch">
             <button class="lang-btn" data-lang="hu">HU</button>
             <button class="lang-btn" data-lang="en">EN</button>
@@ -38,15 +38,15 @@
 
     <main class="page">
         <section class="hero">
-            <p class="eyebrow" data-i18n="news.hero.eyebrow">Projektek</p>
-            <h1 data-i18n="news.hero.title">Repository kiemelések</h1>
-            <p class="page-lead" data-i18n="news.hero.lead">Válogatott publikus repositoryk és projektkiemelések.</p>
+            <p class="eyebrow" data-i18n="news.hero.eyebrow">Games</p>
+            <h1 data-i18n="news.hero.title">Games and prototypes</h1>
+            <p class="page-lead" data-i18n="news.hero.lead">Kiddo is the current focus. cyberpunk-shootout stays here as a public prototype from the studio orbit.</p>
         </section>
 
         <section class="section">
             <div class="section-heading">
-                <h2 data-i18n="news.feed.heading">Ezekkel kezdd</h2>
-                <p data-i18n="news.feed.subheading">Publikus projektek GitHub linkekkel.</p>
+                <h2 data-i18n="news.feed.heading">Open first</h2>
+                <p data-i18n="news.feed.subheading">Public project links. Store pages, demos, and wishlists can be added when they exist.</p>
             </div>
             <ul class="news-list" data-news-feed>
                 <li class="news-card">
@@ -54,25 +54,32 @@
                         <span class="news-date">2024.01.01</span>
                         <span class="badge">Static</span>
                     </div>
-                    <h3>PiewBond</h3>
+                    <h3>Kiddo</h3>
+                </li>
+                <li class="news-card">
+                    <div class="news-meta">
+                        <span class="news-date">2026.02.02</span>
+                        <span class="badge">Prototype</span>
+                    </div>
+                    <h3>cyberpunk-shootout</h3>
                 </li>
             </ul>
         </section>
 
         <section class="section">
             <div class="section-heading">
-                <h2 data-i18n="news.next.heading">Következő tartalmi kör</h2>
-                <p data-i18n="news.next.subheading">A projektleírásokat akkor érdemes bővíteni, amikor Bonifác eldönti, mi legyen publikus.</p>
+                <h2 data-i18n="news.next.heading">Coming later</h2>
+                <p data-i18n="news.next.subheading">Public store and press links are not published yet.</p>
             </div>
             <div class="note-grid">
-                <p data-i18n="news.next.body1">Jó következő elemek: screenshotok, rövid gameplay jegyzetek, mit tanított az adott projekt, és melyik repo aktív még.</p>
-                <p data-i18n="news.next.body2">Addig a GitHub repositoryk maradnak a források.</p>
+                <p data-i18n="news.next.body1">Good next additions: Kiddo screenshots, a gameplay trailer, demo links, wishlist links, and a short press kit.</p>
+                <p data-i18n="news.next.body2">Until then, the public repositories remain the source of truth.</p>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>© <span data-current-year>2026</span> PiewBond · <span data-i18n="common.rights">Minden jog fenntartva.</span></p>
+        <p>© <span data-current-year>2026</span> Black Cat Glass · <span data-i18n="common.rights">All rights reserved.</span></p>
     </footer>
 
     <script type="module" defer src="/scripts/main.js"></script>
