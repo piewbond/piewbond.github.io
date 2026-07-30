@@ -44,22 +44,18 @@ const loadTranslations = async () => {
     translations = nextTranslations;
 };
 const localeStorageKey = 'piewbond-locale';
-const localeFormatMap = {
-    hu: 'hu-HU',
-    en: 'en-GB'
-};
 const goals = [
     {
         title: 'goals.0.title',
         detail: 'goals.0.detail',
-        progress: 75,
-        focus: 'goals.0.focus'
+        focus: 'goals.0.focus',
+        link: 'https://github.com/piewbond/project-kiddo'
     },
     {
         title: 'goals.1.title',
         detail: 'goals.1.detail',
-        progress: 35,
-        focus: 'goals.1.focus'
+        focus: 'goals.1.focus',
+        link: 'https://github.com/piewbond/cyberpunk-shootout'
     }
 ];
 const metrics = [
@@ -69,14 +65,14 @@ const metrics = [
 ];
 const newsItems = [
     {
-        date: '2025-09-12',
+        status: 'news.items.0.status',
         title: 'news.items.0.title',
         summary: 'news.items.0.summary',
         tags: ['news.items.0.tags.0', 'news.items.0.tags.1'],
         link: 'https://github.com/piewbond/project-kiddo'
     },
     {
-        date: '2026-02-02',
+        status: 'news.items.1.status',
         title: 'news.items.1.title',
         summary: 'news.items.1.summary',
         tags: ['news.items.1.tags.0', 'news.items.1.tags.1'],
@@ -126,7 +122,6 @@ const portfolioContext = {
     ],
     note: 'schedule.note'
 };
-const clampProgress = (value) => Math.max(0, Math.min(100, value));
 const createElement = (tag, className, text) => {
     const element = document.createElement(tag);
     if (className) {
@@ -242,20 +237,6 @@ const initMobileNavigation = () => {
         }
     });
 };
-const localeFormatFor = (locale) => localeFormatMap[locale];
-const formatDate = (isoString) => {
-    try {
-        const formatter = new Intl.DateTimeFormat(localeFormatFor(currentLocale), {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        });
-        return formatter.format(new Date(isoString));
-    }
-    catch (error) {
-        return isoString;
-    }
-};
 const translate = (key, vars) => {
     const localeTable = translations[currentLocale] ?? {};
     const enTable = translations.en ?? {};
@@ -326,11 +307,11 @@ const renderGoals = () => {
         card.appendChild(createElement('span', 'badge', translate(goal.focus)));
         card.appendChild(createElement('h3', '', translate(goal.title)));
         card.appendChild(createElement('p', '', translate(goal.detail)));
-        const progress = createElement('div', 'progress');
-        const bar = createElement('div', 'progress-bar');
-        bar.style.width = `${clampProgress(goal.progress)}%`;
-        progress.appendChild(bar);
-        card.appendChild(progress);
+        const link = createElement('a', 'btn ghost', translate('common.readMore'));
+        link.setAttribute('href', goal.link);
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+        card.appendChild(link);
         return card;
     });
 };
@@ -346,11 +327,10 @@ const renderMetrics = () => {
 };
 const renderNews = () => {
     const list = document.querySelector('[data-news-feed]');
-    const sorted = [...newsItems].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    renderCollection(list, sorted, item => {
+    renderCollection(list, newsItems, item => {
         const card = createElement('li', 'news-card');
         const meta = createElement('div', 'news-meta');
-        meta.appendChild(createElement('span', 'news-date', formatDate(item.date)));
+        meta.appendChild(createElement('span', 'news-date', translate(item.status)));
         item.tags.forEach(tag => meta.appendChild(createElement('span', 'badge', translate(tag))));
         card.appendChild(meta);
         card.appendChild(createElement('h3', '', translate(item.title)));
