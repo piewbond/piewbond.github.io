@@ -31,12 +31,14 @@ interface TimelineItem {
   description: string; 
 }
 
-interface TeamProfile {
+interface ProfileCard {
   name: string; 
   title: string; 
   bio: string; 
   specialties: string[];
-  highlight: string; 
+  highlight: string;
+  imageSrc?: string;
+  initials: string;
 }
 
 interface ContactChannel {
@@ -117,7 +119,7 @@ const loadTranslations = async (): Promise<void> => {
   translations = nextTranslations;
 };
 
-const localeStorageKey = 'bcg-locale';
+const localeStorageKey = 'piewbond-locale';
 const localeFormatMap: Record<Locale, Intl.LocalesArgument> = {
   hu: 'hu-HU',
   en: 'en-GB'
@@ -127,78 +129,63 @@ const goals: GoalItem[] = [
   {
     title: 'goals.0.title',
     detail: 'goals.0.detail',
-    progress: 72,
+    progress: 75,
     focus: 'goals.0.focus'
   },
   {
     title: 'goals.1.title',
     detail: 'goals.1.detail',
-    progress: 48,
+    progress: 35,
     focus: 'goals.1.focus'
-  },
-  {
-    title: 'goals.2.title',
-    detail: 'goals.2.detail',
-    progress: 31,
-    focus: 'goals.2.focus'
   }
 ];
 
 const metrics: MetricItem[] = [
-  { label: 'metrics.0.label', value: '3', note: 'metrics.0.note' },
-  { label: 'metrics.1.label', value: '120+', note: 'metrics.1.note' },
-  { label: 'metrics.2.label', value: '5', note: 'metrics.2.note' }
+  { label: 'metrics.0.label', value: '2', note: 'metrics.0.note' },
+  { label: 'metrics.1.label', value: 'Kiddo', note: 'metrics.1.note' },
+  { label: 'metrics.2.label', value: 'Soon', note: 'metrics.2.note' }
 ];
 
 const newsItems: NewsItem[] = [
   {
-    date: '2026-02-18',
+    date: '2025-09-12',
     title: 'news.items.0.title',
     summary: 'news.items.0.summary',
     tags: ['news.items.0.tags.0', 'news.items.0.tags.1'],
-    link: 'https://blackcatglass.studio/devlog/mirror-bloom-12'
+    link: 'https://github.com/piewbond/project-kiddo'
   },
   {
-    date: '2026-02-05',
+    date: '2026-02-02',
     title: 'news.items.1.title',
     summary: 'news.items.1.summary',
-    tags: ['news.items.1.tags.0', 'news.items.1.tags.1']
+    tags: ['news.items.1.tags.0', 'news.items.1.tags.1'],
+    link: 'https://github.com/piewbond/cyberpunk-shootout'
   },
-  {
-    date: '2026-01-22',
-    title: 'news.items.2.title',
-    summary: 'news.items.2.summary',
-    tags: ['news.items.2.tags.0', 'news.items.2.tags.1']
-  }
 ];
 
 const timelineEntries: TimelineItem[] = [
-  { year: '2026', title: 'timeline.0.title', description: 'timeline.0.description' },
-  { year: '2025', title: 'timeline.1.title', description: 'timeline.1.description' },
-  { year: '2024', title: 'timeline.2.title', description: 'timeline.2.description' }
+  { year: 'Now', title: 'timeline.0.title', description: 'timeline.0.description' },
+  { year: 'Next', title: 'timeline.1.title', description: 'timeline.1.description' },
+  { year: 'Later', title: 'timeline.2.title', description: 'timeline.2.description' }
 ];
 
-const teamProfiles: TeamProfile[] = [
+const profileCards: ProfileCard[] = [
   {
-    name: 'team.0.name',
-    title: 'team.0.title',
-    bio: 'team.0.bio',
-    specialties: ['team.0.spec.0', 'team.0.spec.1', 'team.0.spec.2'],
-    highlight: 'team.0.highlight'
+    name: 'profile.0.name',
+    title: 'profile.0.title',
+    bio: 'profile.0.bio',
+    specialties: ['profile.0.spec.0', 'profile.0.spec.1', 'profile.0.spec.2'],
+    highlight: 'profile.0.highlight',
+    imageSrc: '/me.png',
+    initials: 'BP'
   },
   {
-    name: 'team.1.name',
-    title: 'team.1.title',
-    bio: 'team.1.bio',
-    specialties: ['team.1.spec.0', 'team.1.spec.1', 'team.1.spec.2'],
-    highlight: 'team.1.highlight'
-  },
-  {
-    name: 'team.2.name',
-    title: 'team.2.title',
-    bio: 'team.2.bio',
-    specialties: ['team.2.spec.0', 'team.2.spec.1', 'team.2.spec.2'],
-    highlight: 'team.2.highlight'
+    name: 'profile.1.name',
+    title: 'profile.1.title',
+    bio: 'profile.1.bio',
+    specialties: ['profile.1.spec.0', 'profile.1.spec.1', 'profile.1.spec.2'],
+    highlight: 'profile.1.highlight',
+    initials: 'KM'
   }
 ];
 
@@ -208,31 +195,13 @@ const contactProfiles: ContactProfile[] = [
     role: 'contact.0.role',
     focus: 'contact.0.focus',
     channels: [
-      { label: 'contact.0.channels.0.label', value: 'hello@blackcatglass.studio', href: 'mailto:hello@blackcatglass.studio', hint: 'contact.0.channels.0.hint' },
-      { label: 'contact.0.channels.1.label', value: '@bonifac.codeslight', href: 'https://instagram.com/bonifac.p', hint: 'contact.0.channels.1.hint' }
-    ]
-  },
-  {
-    name: 'contact.1.name',
-    role: 'contact.1.role',
-    focus: 'contact.1.focus',
-    channels: [
-      { label: 'contact.1.channels.0.label', value: 'kristof@blackcatglass.studio', href: 'mailto:kristof@blackcatglass.studio', hint: 'contact.1.channels.0.hint' },
-      { label: 'contact.1.channels.1.label', value: '@mercz.glass', href: 'https://instagram.com/mercz.kristof', hint: 'contact.1.channels.1.hint' }
-    ]
-  },
-    {
-    name: 'contact.2.name',
-    role: 'contact.2.role',
-    focus: 'contact.2.focus',
-    channels: [
-      { label: 'contact.2.channels.0.label', value: 'mark@blackcatglass.studio', href: 'mailto:mark@blackcatglass.studio', hint: 'contact.2.channels.0.hint' },
-      { label: 'contact.2.channels.1.label', value: '@cseh.mark', href: 'https://instagram.com/mark.cz_', hint: 'contact.2.channels.1.hint' }
+      { label: 'contact.0.channels.0.label', value: 'github.com/piewbond/project-kiddo', href: 'https://github.com/piewbond/project-kiddo', hint: 'contact.0.channels.0.hint' },
+      { label: 'contact.0.channels.1.label', value: 'github.com/piewbond/cyberpunk-shootout', href: 'https://github.com/piewbond/cyberpunk-shootout', hint: 'contact.0.channels.1.hint' }
     ]
   }
 ];
 
-const studioSchedule: ScheduleInfo = {
+const portfolioContext: ScheduleInfo = {
   windows: [
     { label: 'schedule.windows.0.label', detail: 'schedule.windows.0.detail' },
     { label: 'schedule.windows.1.label', detail: 'schedule.windows.1.detail' },
@@ -519,19 +488,27 @@ const renderTimeline = (): void => {
   });
 };
 
-const renderTeamProfiles = (): void => {
-  const grid = document.querySelector<HTMLElement>('[data-team-profiles]');
-  renderCollection(grid, teamProfiles, profile => {
-    const card = createElement('article', 'card team-card');
+const renderProfileCards = (): void => {
+  const grid = document.querySelector<HTMLElement>('[data-profile-cards]');
+  renderCollection(grid, profileCards, profile => {
+    const card = createElement('article', 'card profile-card');
+    if (profile.imageSrc) {
+      const image = createElement('img', 'profile-photo');
+      image.setAttribute('src', profile.imageSrc);
+      image.setAttribute('alt', translate('profile.photoAlt', { name: translate(profile.name) }));
+      card.appendChild(image);
+    } else {
+      card.appendChild(createElement('div', 'profile-photo profile-photo-placeholder', profile.initials));
+    }
     card.appendChild(createElement('h3', '', translate(profile.name)));
-    card.appendChild(createElement('p', 'team-role', translate(profile.title)));
+    card.appendChild(createElement('p', 'profile-role', translate(profile.title)));
     card.appendChild(createElement('p', '', translate(profile.bio)));
 
     const specialtyList = createElement('div', 'tag-rail');
     profile.specialties.forEach(spec => specialtyList.appendChild(createElement('span', 'badge', translate(spec))));
     card.appendChild(specialtyList);
 
-    card.appendChild(createElement('p', 'team-highlight', translate(profile.highlight)));
+    card.appendChild(createElement('p', 'profile-highlight', translate(profile.highlight)));
     return card;
   });
 };
@@ -570,14 +547,14 @@ const renderScheduleCard = (): void => {
   host.innerHTML = '';
   const card = createElement('article', 'card schedule-card');
   const list = createElement('div', 'schedule-list');
-  studioSchedule.windows.forEach(window => {
+  portfolioContext.windows.forEach(window => {
     const item = createElement('div', 'schedule-row');
     item.appendChild(createElement('span', 'schedule-label', translate(window.label)));
     item.appendChild(createElement('p', 'schedule-detail', translate(window.detail)));
     list.appendChild(item);
   });
   card.appendChild(list);
-  card.appendChild(createElement('p', 'schedule-note', translate(studioSchedule.note)));
+  card.appendChild(createElement('p', 'schedule-note', translate(portfolioContext.note)));
   host.appendChild(card);
 };
 
@@ -586,33 +563,9 @@ const renderDynamicSections = (): void => {
   renderMetrics();
   renderNews();
   renderTimeline();
-  renderTeamProfiles();
+  renderProfileCards();
   renderContacts();
   renderScheduleCard();
-};
-
-const wireNewsletterForm = (): void => {
-  const form = document.querySelector<HTMLFormElement>('[data-newsletter]');
-  if (!form) {
-    return;
-  }
-  const input = form.querySelector<HTMLInputElement>('input[type="email"]');
-  const hint = form.parentElement?.querySelector<HTMLElement>('.form-hint');
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!input) {
-      return;
-    }
-    if (!input.value.trim() || !input.checkValidity()) {
-      input.reportValidity();
-      return;
-    }
-    if (hint) {
-      hint.textContent = translate('news.newsletter.success', { email: input.value.trim() });
-      hint.classList.add('success');
-    }
-    form.reset();
-  });
 };
 
 const updateYear = (): void => {
@@ -656,7 +609,6 @@ const init = (): void => {
   initMobileNavigation();
   initLanguageSwitcher();
   renderDynamicSections();
-  wireNewsletterForm();
   updateYear();
 };
 
