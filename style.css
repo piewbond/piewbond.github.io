@@ -18,6 +18,8 @@
 
 html {
   background: var(--bg);
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -694,6 +696,8 @@ body[data-page="home"] {
   width: 400%;
   max-width: none;
   image-rendering: pixelated;
+  will-change: transform;
+  animation: sprite-idle 900ms steps(4, end) infinite;
 }
 
 .sprite-crop-kiddo {
@@ -711,6 +715,7 @@ body[data-page="home"] {
 
 .sprite-crop-enemy img {
   filter: saturate(0.68) contrast(1.15) brightness(0.68);
+  animation-duration: 1150ms;
 }
 
 .lunchbox-crop {
@@ -724,6 +729,7 @@ body[data-page="home"] {
   max-width: none;
   image-rendering: pixelated;
   filter: drop-shadow(0 18px 14px rgba(0, 0, 0, 0.66));
+  animation: lunchbox-idle 2.8s ease-in-out infinite;
 }
 
 .hero-lunchbox {
@@ -734,6 +740,11 @@ body[data-page="home"] {
   height: 190px;
   transform: scale(0.68) rotate(-5deg);
   transform-origin: bottom left;
+}
+
+.hero-lunchbox img {
+  width: calc(100% - 24px);
+  margin: 10px auto 0;
 }
 
 .height-mark {
@@ -901,7 +912,30 @@ body[data-page="home"] {
   place-items: center;
   width: 175px;
   height: 190px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
   transform: rotate(4deg);
+}
+
+.mission-lunchbox img {
+  width: calc(100% - 6px);
+  margin-inline: auto;
+}
+
+.mission-lunchbox:focus-visible {
+  outline: 2px solid var(--accent-warm);
+  outline-offset: 8px;
+}
+
+.mission-lunchbox:disabled {
+  cursor: default;
+}
+
+.mission-lunchbox.is-hit img {
+  animation: lunchbox-hit 320ms steps(2, end);
 }
 
 .mission-code {
@@ -967,6 +1001,63 @@ body[data-page="home"] {
   max-height: 62px;
   image-rendering: pixelated;
   filter: saturate(0.84) drop-shadow(0 10px 7px rgba(0, 0, 0, 0.52));
+  animation: arsenal-item-idle 2.4s ease-in-out infinite;
+}
+
+.arsenal-item:nth-child(3n + 2) img {
+  animation-delay: -0.8s;
+}
+
+.arsenal-item:nth-child(3n) img {
+  animation-delay: -1.6s;
+}
+
+.arsenal-item:hover img {
+  animation: none;
+  transform: translateY(-5px) rotate(-3deg) scale(1.12);
+}
+
+@keyframes sprite-idle {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes lunchbox-idle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
+
+@keyframes lunchbox-hit {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+
+  25% {
+    transform: translateX(-3px) rotate(-1deg) scale(1.01);
+  }
+
+  75% {
+    transform: translateX(3px) rotate(1deg) scale(0.99);
+  }
+}
+
+@keyframes arsenal-item-idle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-4px) rotate(2deg);
+  }
 }
 
 .project-section {
@@ -1154,5 +1245,18 @@ body[data-page="home"] {
   .nav-link,
   .lang-btn {
     padding: 0.45rem 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite-crop img,
+  .lunchbox-crop img,
+  .mission-lunchbox.is-hit img,
+  .arsenal-item img {
+    animation: none;
+  }
+
+  .arsenal-item:hover img {
+    transform: none;
   }
 }

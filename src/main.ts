@@ -361,6 +361,14 @@ const applyTranslations = (): void => {
       node.placeholder = translate(key);
     }
   });
+
+  const ariaLabelNodes = document.querySelectorAll<HTMLElement>('[data-i18n-aria-label]');
+  ariaLabelNodes.forEach(node => {
+    const key = node.dataset.i18nAriaLabel;
+    if (key) {
+      node.setAttribute('aria-label', translate(key));
+    }
+  });
 };
 
 const updateLanguageButtons = (): void => {
@@ -551,6 +559,64 @@ const updateYear = (): void => {
   }
 };
 
+const initLunchboxDamage = (): void => {
+  const controls = document.querySelectorAll<HTMLButtonElement>('[data-lunchbox-control]');
+  const states = [
+    { image: '/assets/kiddo/lunchbox-full.png', label: 'home.mission.damage.full' },
+    { image: '/assets/kiddo/lunchbox-damaged.png', label: 'home.mission.damage.damaged' },
+    { image: '/assets/kiddo/lunchbox-broken.png', label: 'home.mission.damage.broken' }
+  ] as const;
+
+  states.slice(1).forEach(state => {
+    const preload = new Image();
+    preload.src = state.image;
+  });
+
+  controls.forEach(control => {
+    const image = control.querySelector<HTMLImageElement>('img');
+    if (!image) {
+      return;
+    }
+
+    let stateIndex = 0;
+    let resetTimer: number | undefined;
+
+    const setState = (nextStateIndex: number): void => {
+      stateIndex = nextStateIndex;
+      const state = states[stateIndex];
+      image.src = state.image;
+      control.dataset.i18nAriaLabel = state.label;
+      control.setAttribute('aria-label', translate(state.label));
+      control.disabled = stateIndex === states.length - 1;
+    };
+
+    const scheduleReset = (): void => {
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        setState(0);
+      }, 1800);
+    };
+
+    control.addEventListener('click', () => {
+      if (stateIndex >= states.length - 1) {
+        return;
+      }
+
+      setState(stateIndex + 1);
+      control.classList.remove('is-hit');
+      void control.offsetWidth;
+      control.classList.add('is-hit');
+      scheduleReset();
+    });
+
+    image.addEventListener('animationend', event => {
+      if (event.animationName === 'lunchbox-hit') {
+        control.classList.remove('is-hit');
+      }
+    });
+  });
+};
+
 const setLocale = (locale: Locale): void => {
   if (locale === currentLocale) {
     return;
@@ -584,6 +650,7 @@ const init = (): void => {
   activateNavigation();
   initMobileNavigation();
   initLanguageSwitcher();
+  initLunchboxDamage();
   renderDynamicSections();
   updateYear();
 };
