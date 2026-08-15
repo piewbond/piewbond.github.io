@@ -1047,6 +1047,10 @@ body[data-page="home"] {
   image-rendering: pixelated;
 }
 
+.arsenal-actor[data-animation="idle"] img {
+  animation: arsenal-actor-idle 900ms steps(4, end) infinite;
+}
+
 .arsenal-effect {
   position: absolute;
   z-index: 2;
@@ -1303,6 +1307,10 @@ body[data-page="home"] {
 }
 
 @keyframes arsenal-sprite-run {
+  to { transform: translateX(-100%); }
+}
+
+@keyframes arsenal-actor-idle {
   to { transform: translateX(-100%); }
 }
 
