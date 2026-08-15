@@ -671,6 +671,11 @@ const initHeroStory = (): void => {
     setActor(worker, workerImage, 'idle', assets.worker.idle);
   };
 
+  const idleBefore = (nextScene: () => void): void => {
+    reset();
+    later(nextScene, 2000);
+  };
+
   const runJump = (): void => {
     reset();
     stage.classList.add('scene-jump');
@@ -680,7 +685,7 @@ const initHeroStory = (): void => {
       setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
       setActor(worker, workerImage, 'idle', assets.worker.idle);
     }, 3900);
-    later(runFight, 5600);
+    later(() => idleBefore(runFight), 4400);
   };
 
   const runFight = (): void => {
@@ -695,8 +700,8 @@ const initHeroStory = (): void => {
       setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
       setActor(worker, workerImage, 'death', assets.worker.death);
     }, 1900);
-    later(() => stage.classList.add('is-claiming'), 2850);
-    later(runJump, 6500);
+    later(() => stage.classList.add('is-claiming'), 3000);
+    later(() => idleBefore(runJump), 5400);
   };
 
   const syncMotionPreference = (): void => {

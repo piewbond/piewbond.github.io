@@ -698,7 +698,7 @@ body[data-page="home"] {
   max-width: none;
   image-rendering: pixelated;
   will-change: transform;
-  animation: sprite-idle 900ms steps(4, end) infinite;
+  animation: sprite-idle 900ms steps(4, jump-none) infinite;
 }
 
 .sprite-crop-kiddo {
@@ -712,6 +712,7 @@ body[data-page="home"] {
   bottom: 8%;
   width: 53%;
   opacity: 0.82;
+  transform: scaleX(-1);
 }
 
 .sprite-crop-enemy img {
@@ -750,9 +751,11 @@ body[data-page="home"] {
   left: 67%;
   bottom: 24%;
   transform: scale(0.5) rotate(7deg);
+  opacity: 0;
 }
 
 .kiddo-hero-art.scene-fight.is-claiming .hero-lunchbox {
+  opacity: 1;
   animation: hero-lunchbox-claim 2.15s cubic-bezier(0.22, 0.7, 0.28, 1) forwards;
 }
 
@@ -789,15 +792,16 @@ body[data-page="home"] {
 }
 
 @keyframes hero-worker-fall {
-  0%, 65% { opacity: 0.82; transform: translate(0, 0) rotate(0); }
-  100% { opacity: 0; transform: translate(8%, 12%) rotate(5deg); }
+  0%, 65% { opacity: 0.82; transform: translate(0, 0) rotate(0) scaleX(-1); }
+  100% { opacity: 0; transform: translate(-8%, 12%) rotate(-5deg) scaleX(-1); }
 }
 
 @keyframes hero-lunchbox-claim {
-  0% { left: 67%; bottom: 24%; transform: scale(0.5) rotate(7deg); }
-  24% { left: 65%; bottom: 7%; transform: scale(0.58) rotate(-12deg); }
-  55% { left: 50%; bottom: 28%; transform: scale(0.62) rotate(9deg); }
-  100% { left: 28%; bottom: 7%; transform: scale(0.62) rotate(-4deg); }
+  0% { left: 67%; bottom: 24%; transform: scale(0.5) rotate(7deg); opacity: 0; }
+  8% { opacity: 1; }
+  24% { left: 65%; bottom: 7%; transform: scale(0.58) rotate(-12deg); opacity: 1; }
+  55% { left: 50%; bottom: 28%; transform: scale(0.62) rotate(9deg); opacity: 1; }
+  100% { left: 28%; bottom: 7%; transform: scale(0.62) rotate(-4deg); opacity: 1; }
 }
 
 @keyframes hero-kiddo-reach {
@@ -808,10 +812,10 @@ body[data-page="home"] {
 }
 
 @keyframes hero-worker-reach {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-4%, 4%) scale(0.98); }
-  55% { transform: translate(-58%, -52%) scale(0.9) rotate(4deg); }
-  72% { transform: translate(-72%, -35%) scale(0.92) rotate(-3deg); }
+  0%, 100% { transform: translate(0, 0) scaleX(-1); }
+  20% { transform: translate(-4%, 4%) scale(-0.98, 0.98); }
+  55% { transform: translate(-58%, -52%) scale(-0.9, 0.9) rotate(-4deg); }
+  72% { transform: translate(-72%, -35%) scale(-0.92, 0.92) rotate(3deg); }
 }
 
 @keyframes hero-lunchbox-chase {
@@ -1152,7 +1156,7 @@ body[data-page="home"] {
 }
 
 .arsenal-actor[data-animation="idle"] img {
-  animation: arsenal-actor-idle 900ms steps(4, end) infinite;
+  animation: arsenal-actor-idle 900ms steps(4, jump-none) infinite;
 }
 
 .arsenal-effect {
@@ -1415,7 +1419,7 @@ body[data-page="home"] {
 }
 
 @keyframes arsenal-actor-idle {
-  to { transform: translateX(-100%); }
+  to { transform: translateX(-75%); }
 }
 
 @keyframes arsenal-focus {
@@ -1508,7 +1512,7 @@ body[data-page="home"] {
 
 @keyframes sprite-idle {
   to {
-    transform: translateX(-100%);
+    transform: translateX(-75%);
   }
 }
 
