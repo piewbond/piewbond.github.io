@@ -590,28 +590,15 @@ const initHeroStory = () => {
             setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
             setActor(worker, workerImage, 'idle', assets.worker.idle);
         }, 3900);
-        later(() => idleBefore(runFight), 4400);
+        later(() => idleBefore(runJump), 4400);
     };
-    const runFight = () => {
-        clearTimers();
-        reset();
-        stage.classList.add('scene-fight');
-        later(() => {
-            setActor(kiddo, kiddoImage, 'attack', assets.kiddo.attack);
-            setActor(worker, workerImage, 'attack', assets.worker.attack);
-        }, 850);
-        later(() => {
-            setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
-            setActor(worker, workerImage, 'death', assets.worker.death);
-        }, 1900);
-        later(() => stage.classList.add('is-claiming'), 3000);
-        later(() => idleBefore(runJump), 5400);
-    };
+    // TODO: Rebuild the fight sequence once Kiddo's multi-row attack sheet can
+    // be composed without sprite doubling at responsive hero sizes.
     const syncMotionPreference = () => {
         clearTimers();
         reset();
         if (!motionQuery.matches && !document.hidden) {
-            later(runFight, 700);
+            later(runJump, 700);
         }
     };
     motionQuery.addEventListener('change', syncMotionPreference);
