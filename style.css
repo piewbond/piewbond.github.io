@@ -1,13 +1,13 @@
 :root {
-  --bg: #101214;
-  --surface: #171b1f;
-  --surface-strong: #20262c;
-  --text: #f4f0e8;
-  --muted: #aab3b5;
-  --line: rgba(244, 240, 232, 0.13);
-  --accent: #7dd3c7;
-  --accent-warm: #f3b45b;
-  --accent-hot: #ff6b6b;
+  --bg: #090b0c;
+  --surface: #121516;
+  --surface-strong: #1b2021;
+  --text: #f1ede3;
+  --muted: #9ea4a1;
+  --line: rgba(241, 237, 227, 0.14);
+  --accent: #d6a643;
+  --accent-warm: #efbd4f;
+  --accent-hot: #b94732;
   --shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
   font-size: 16px;
 }
@@ -25,7 +25,7 @@ body {
   min-height: 100vh;
   font-family: "Josefin Sans", system-ui, sans-serif;
   background:
-    linear-gradient(180deg, rgba(125, 211, 199, 0.08), transparent 320px),
+    linear-gradient(180deg, rgba(214, 166, 67, 0.07), transparent 320px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     var(--bg);
   background-size: auto, 44px 44px, auto;
@@ -119,8 +119,8 @@ img {
 .nav-link.is-active,
 .nav-link[aria-current="page"],
 .lang-btn.active {
-  background: rgba(125, 211, 199, 0.13);
-  border-color: rgba(125, 211, 199, 0.5);
+  background: rgba(214, 166, 67, 0.13);
+  border-color: rgba(214, 166, 67, 0.5);
   color: var(--accent);
 }
 
@@ -425,8 +425,8 @@ body.nav-open .site-footer {
   padding: 0.25rem 0.55rem;
   margin-right: 0.2rem;
   border-radius: 999px;
-  background: rgba(125, 211, 199, 0.12);
-  border: 1px solid rgba(125, 211, 199, 0.24);
+  background: rgba(214, 166, 67, 0.12);
+  border: 1px solid rgba(214, 166, 67, 0.24);
   color: var(--accent);
   font-size: 0.78rem;
   font-weight: 700;
@@ -445,7 +445,7 @@ body.nav-open .site-footer {
   list-style: none;
   padding: 0;
   margin: 1.5rem 0 0;
-  border-left: 2px solid rgba(125, 211, 199, 0.28);
+  border-left: 2px solid rgba(214, 166, 67, 0.28);
 }
 
 .timeline-item {
@@ -581,6 +581,266 @@ body.nav-open .site-footer {
   border: 0;
 }
 
+/* Kiddo homepage visual system. Built as a reusable template for future game art. */
+body[data-page="home"] {
+  background:
+    radial-gradient(circle at 72% 9%, rgba(185, 71, 50, 0.14), transparent 27rem),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, 52px 52px, auto;
+}
+
+.kiddo-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(380px, 1.12fr);
+  align-items: center;
+  gap: 1rem;
+  min-height: 650px;
+  padding: 2rem 0 4rem;
+  isolation: isolate;
+}
+
+.kiddo-hero::before {
+  content: "";
+  position: absolute;
+  left: -50vw;
+  right: -50vw;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(214, 166, 67, 0.58), transparent);
+}
+
+.kiddo-hero .hero-copy {
+  position: relative;
+  z-index: 3;
+}
+
+.kiddo-wordmark {
+  margin: 0 0 1rem;
+  font-family: "Abril Fatface", Georgia, serif;
+  font-size: clamp(5rem, 10vw, 8.6rem);
+  line-height: 0.78;
+  letter-spacing: -0.055em;
+  color: var(--text);
+  text-shadow: 0.035em 0.035em 0 var(--accent-hot), 0 18px 50px rgba(0, 0, 0, 0.75);
+}
+
+.kiddo-hero h1 {
+  max-width: 610px;
+  font-family: "Josefin Sans", system-ui, sans-serif;
+  font-size: clamp(1.55rem, 3vw, 2.55rem);
+  line-height: 1.08;
+  font-weight: 600;
+}
+
+.kiddo-hero .page-lead {
+  max-width: 560px;
+  color: rgba(241, 237, 227, 0.72);
+}
+
+.kiddo-hero-art {
+  position: relative;
+  align-self: stretch;
+  min-height: 590px;
+  overflow: hidden;
+  border-right: 1px solid rgba(214, 166, 67, 0.24);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 51px, rgba(239, 189, 79, 0.12) 52px),
+    linear-gradient(115deg, transparent 18%, rgba(185, 71, 50, 0.13) 65%, transparent),
+    radial-gradient(circle at 65% 42%, #313534, #111414 58%, transparent 72%);
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%, 8% 58%);
+}
+
+.kiddo-hero-art::before,
+.kiddo-hero-art::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  background: #080a0a;
+  transform: rotate(-17deg);
+  box-shadow: 0 0 0 1px rgba(239, 189, 79, 0.08);
+}
+
+.kiddo-hero-art::before {
+  width: 32px;
+  height: 150%;
+  left: 24%;
+  top: -20%;
+}
+
+.kiddo-hero-art::after {
+  width: 18px;
+  height: 140%;
+  right: 8%;
+  top: -10%;
+}
+
+.hero-haze {
+  position: absolute;
+  inset: 25% 4% 8% 19%;
+  background: radial-gradient(ellipse, rgba(214, 166, 67, 0.24), transparent 62%);
+  filter: blur(18px);
+}
+
+.sprite-crop {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  filter: drop-shadow(0 25px 18px rgba(0, 0, 0, 0.76));
+}
+
+.sprite-crop img {
+  width: 400%;
+  max-width: none;
+  image-rendering: pixelated;
+}
+
+.sprite-crop-kiddo {
+  left: 9%;
+  bottom: 5%;
+  width: 41%;
+}
+
+.sprite-crop-enemy {
+  right: -3%;
+  bottom: 8%;
+  width: 53%;
+  opacity: 0.82;
+}
+
+.sprite-crop-enemy img {
+  filter: saturate(0.68) contrast(1.15) brightness(0.68);
+}
+
+.height-mark {
+  position: absolute;
+  z-index: 0;
+  right: 0.65rem;
+  color: rgba(239, 189, 79, 0.35);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.height-mark::before {
+  content: "";
+  display: inline-block;
+  width: 80px;
+  margin-right: 0.55rem;
+  border-top: 1px solid rgba(239, 189, 79, 0.25);
+  vertical-align: middle;
+}
+
+.height-mark-one { top: 25%; }
+.height-mark-two { top: 67%; }
+
+.world-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(310px, 0.65fr);
+  gap: clamp(1.5rem, 5vw, 4.5rem);
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.world-image {
+  position: relative;
+  min-height: 470px;
+  overflow: hidden;
+  background: #050606;
+  border: 1px solid rgba(239, 189, 79, 0.24);
+  box-shadow: 20px 24px 0 rgba(185, 71, 50, 0.09), var(--shadow);
+}
+
+.world-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(7, 9, 9, 0.55), transparent 30%, transparent 72%, rgba(7, 9, 9, 0.4)),
+    linear-gradient(0deg, rgba(7, 9, 9, 0.75), transparent 40%);
+}
+
+.world-image img {
+  width: 100%;
+  min-height: 470px;
+  object-fit: cover;
+  filter: saturate(0.64) contrast(1.18) brightness(0.72) sepia(0.06);
+}
+
+.world-caption {
+  position: absolute;
+  z-index: 1;
+  left: 1rem;
+  bottom: 1rem;
+  display: grid;
+  gap: 0.3rem;
+  padding-left: 0.8rem;
+  border-left: 3px solid var(--accent-hot);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.world-caption span {
+  color: var(--accent-warm);
+  font-size: 0.68rem;
+}
+
+.world-copy h2 {
+  margin: 0 0 1.2rem;
+  font-family: "Abril Fatface", Georgia, serif;
+  font-size: clamp(2.2rem, 5vw, 4.1rem);
+  line-height: 0.98;
+}
+
+.world-copy > p:not(.eyebrow) {
+  color: rgba(241, 237, 227, 0.76);
+  line-height: 1.7;
+}
+
+.feature-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 1.8rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: rgba(241, 237, 227, 0.88);
+}
+
+.feature-list li::before {
+  content: "/";
+  position: absolute;
+  left: 0;
+  color: var(--accent-hot);
+  font-weight: 700;
+}
+
+.text-link {
+  color: var(--accent-warm);
+  font-weight: 700;
+  text-underline-offset: 0.25rem;
+}
+
+.project-section {
+  padding-top: 4rem;
+}
+
+.project-section .goal-card:first-child {
+  background:
+    linear-gradient(135deg, rgba(185, 71, 50, 0.15), transparent 50%),
+    rgba(18, 21, 22, 0.94);
+  border-color: rgba(214, 166, 67, 0.28);
+}
+
+.studio-strip {
+  opacity: 0.86;
+}
+
 @media (max-width: 860px) {
   .site-header {
     grid-template-columns: auto auto auto;
@@ -593,6 +853,19 @@ body.nav-open .site-footer {
 
   .identity-panel {
     max-width: 360px;
+  }
+
+  .kiddo-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .kiddo-hero-art {
+    min-height: 500px;
+  }
+
+  .world-feature {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -657,6 +930,24 @@ body.nav-open .site-footer {
   .hero h1,
   .hero-title {
     font-size: 2.35rem;
+  }
+
+  .kiddo-wordmark {
+    font-size: clamp(4.5rem, 25vw, 7rem);
+  }
+
+  .kiddo-hero-art {
+    min-height: 420px;
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .world-feature {
+    padding: 3.5rem 0;
+  }
+
+  .world-image,
+  .world-image img {
+    min-height: 330px;
   }
 
   .hero-actions {
