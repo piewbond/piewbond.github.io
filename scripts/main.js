@@ -507,7 +507,7 @@ const initHeroStory = () => {
     const assets = {
         kiddo: {
             idle: { source: '/assets/kiddo/kiddo-idle.png', frames: 4, frameDuration: 225, loop: true },
-            attack: { source: '/assets/kiddo/kiddo-attack.png', frames: 3, frameDuration: 293 },
+            attack: { source: '/assets/kiddo/kiddo-attack.png', frames: 9, frameDuration: 98 },
             jump: { source: '/assets/kiddo/kiddo-jump.png', frames: 7, frameDuration: 150 }
         },
         worker: {
