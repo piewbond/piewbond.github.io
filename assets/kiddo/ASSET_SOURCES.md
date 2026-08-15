@@ -8,6 +8,9 @@ public Black Cat Glass website with PiewBond's approval on 2026-08-15.
   mjedve, supplied through the project team's Discord.
 - `scaffolding-atrium.png`: development screenshot captured from the Kiddo
   Scaffolding Atrium scene.
+- `lunchbox-states.png`: lunchbox and sandwich health-state sheet supplied by
+  the project team.
+- `items.png`: prototype item sheet supplied by the project team.
 
 They are promotional development materials and may be replaced as the game's
 visual direction evolves.

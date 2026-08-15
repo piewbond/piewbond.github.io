@@ -713,6 +713,31 @@ body[data-page="home"] {
   filter: saturate(0.68) contrast(1.15) brightness(0.68);
 }
 
+.lunchbox-crop {
+  position: absolute;
+  overflow: hidden;
+}
+
+.lunchbox-crop img {
+  position: absolute;
+  width: 2000px;
+  max-width: none;
+  left: -150px;
+  top: -12px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 18px 14px rgba(0, 0, 0, 0.66));
+}
+
+.hero-lunchbox {
+  z-index: 4;
+  left: 44%;
+  bottom: 2.5%;
+  width: 175px;
+  height: 190px;
+  transform: scale(0.68) rotate(-5deg);
+  transform-origin: bottom left;
+}
+
 .height-mark {
   position: absolute;
   z-index: 0;
@@ -826,6 +851,112 @@ body[data-page="home"] {
   text-underline-offset: 0.25rem;
 }
 
+.mission-feature {
+  display: grid;
+  grid-template-columns: minmax(310px, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: center;
+  min-height: 570px;
+  padding: 5rem 0;
+  border-top-color: rgba(185, 71, 50, 0.38);
+}
+
+.mission-object {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 420px;
+  background:
+    linear-gradient(rgba(214, 166, 67, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214, 166, 67, 0.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+  border: 1px solid rgba(214, 166, 67, 0.16);
+  overflow: hidden;
+}
+
+.mission-object::before,
+.mission-object::after {
+  content: "";
+  position: absolute;
+  inset: 1.2rem;
+  border: 1px solid rgba(214, 166, 67, 0.08);
+  transform: rotate(45deg);
+}
+
+.mission-object::after {
+  inset: 5.4rem;
+  border-color: rgba(185, 71, 50, 0.2);
+}
+
+.mission-ring {
+  position: absolute;
+  width: 270px;
+  aspect-ratio: 1;
+  border: 1px dashed rgba(239, 189, 79, 0.44);
+  border-radius: 50%;
+  box-shadow: 0 0 80px rgba(214, 166, 67, 0.11);
+}
+
+.mission-lunchbox {
+  z-index: 2;
+  width: 175px;
+  height: 190px;
+  transform: rotate(4deg);
+}
+
+.mission-code {
+  position: absolute;
+  z-index: 2;
+  right: 1rem;
+  bottom: 1rem;
+  color: rgba(239, 189, 79, 0.58);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.mission-copy h2 {
+  margin: 0 0 1.25rem;
+  font-family: "Abril Fatface", Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 4.7rem);
+  line-height: 0.98;
+}
+
+.mission-copy > p:not(.eyebrow) {
+  max-width: 620px;
+  color: rgba(241, 237, 227, 0.76);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.arsenal-strip {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.4fr) minmax(0, 1.6fr);
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 5rem;
+  padding: 1.5rem;
+  border-block: 1px solid rgba(214, 166, 67, 0.2);
+  background: linear-gradient(90deg, rgba(185, 71, 50, 0.1), rgba(214, 166, 67, 0.04));
+}
+
+.arsenal-strip h2 {
+  margin: 0;
+  font-family: "Abril Fatface", Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.item-sheet {
+  height: 104px;
+  overflow: hidden;
+}
+
+.item-sheet img {
+  width: 640px;
+  max-width: none;
+  image-rendering: pixelated;
+  filter: saturate(0.84) drop-shadow(0 10px 7px rgba(0, 0, 0, 0.52));
+}
+
 .project-section {
   padding-top: 4rem;
 }
@@ -865,6 +996,18 @@ body[data-page="home"] {
   }
 
   .world-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-copy {
+    order: -1;
+  }
+
+  .arsenal-strip {
     grid-template-columns: 1fr;
   }
 }
@@ -948,6 +1091,25 @@ body[data-page="home"] {
   .world-image,
   .world-image img {
     min-height: 330px;
+  }
+
+  .hero-lunchbox {
+    left: 38%;
+    transform: scale(0.55) rotate(-5deg);
+    transform-origin: bottom left;
+  }
+
+  .mission-feature {
+    padding: 3.5rem 0;
+  }
+
+  .mission-object {
+    min-height: 340px;
+  }
+
+  .arsenal-strip {
+    margin-inline: -0.75rem;
+    overflow: hidden;
   }
 
   .hero-actions {
