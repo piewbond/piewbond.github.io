@@ -690,14 +690,19 @@ body[data-page="home"] {
   z-index: 2;
   aspect-ratio: 1;
   overflow: hidden;
-  filter: drop-shadow(0 25px 18px rgba(0, 0, 0, 0.76));
+  overflow: clip;
+  clip-path: inset(0);
+  contain: paint;
+  isolation: isolate;
 }
 
 .sprite-crop img {
+  display: block;
+  height: auto;
   width: 400%;
   max-width: none;
   image-rendering: pixelated;
-  will-change: transform;
+  filter: drop-shadow(0 25px 18px rgba(0, 0, 0, 0.76));
   animation: sprite-idle 900ms steps(4, jump-none) infinite;
 }
 
