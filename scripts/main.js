@@ -492,6 +492,84 @@ const initLunchboxDamage = () => {
         });
     });
 };
+const initHeroStory = () => {
+    const stage = document.querySelector('[data-hero-story]');
+    const kiddo = stage?.querySelector('[data-hero-kiddo]');
+    const worker = stage?.querySelector('[data-hero-worker]');
+    const kiddoImage = kiddo?.querySelector('img');
+    const workerImage = worker?.querySelector('img');
+    if (!stage || !kiddo || !worker || !kiddoImage || !workerImage) {
+        return;
+    }
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const timers = [];
+    const assets = {
+        kiddo: {
+            idle: '/assets/kiddo/kiddo-idle.png',
+            attack: '/assets/kiddo/kiddo-attack.png',
+            jump: '/assets/kiddo/kiddo-jump.png'
+        },
+        worker: {
+            idle: '/assets/kiddo/construction-worker-idle.png',
+            attack: '/assets/kiddo/construction-worker-attack.png',
+            death: '/assets/kiddo/construction-worker-death.png'
+        }
+    };
+    const later = (callback, delay) => {
+        timers.push(window.setTimeout(callback, delay));
+    };
+    const clearTimers = () => {
+        timers.splice(0).forEach(timer => window.clearTimeout(timer));
+    };
+    const setActor = (actor, image, action, source) => {
+        actor.classList.remove('is-animating');
+        actor.dataset.action = action;
+        image.src = source;
+        void actor.offsetWidth;
+        actor.classList.add('is-animating');
+    };
+    const reset = () => {
+        stage.classList.remove('scene-fight', 'is-claiming', 'scene-jump');
+        setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+        setActor(worker, workerImage, 'idle', assets.worker.idle);
+    };
+    const runJump = () => {
+        reset();
+        stage.classList.add('scene-jump');
+        later(() => setActor(kiddo, kiddoImage, 'jump', assets.kiddo.jump), 350);
+        later(() => setActor(worker, workerImage, 'attack', assets.worker.attack), 520);
+        later(() => {
+            setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+            setActor(worker, workerImage, 'idle', assets.worker.idle);
+        }, 3900);
+        later(runFight, 5600);
+    };
+    const runFight = () => {
+        clearTimers();
+        reset();
+        stage.classList.add('scene-fight');
+        later(() => {
+            setActor(kiddo, kiddoImage, 'attack', assets.kiddo.attack);
+            setActor(worker, workerImage, 'attack', assets.worker.attack);
+        }, 850);
+        later(() => {
+            setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+            setActor(worker, workerImage, 'death', assets.worker.death);
+        }, 1900);
+        later(() => stage.classList.add('is-claiming'), 2850);
+        later(runJump, 6500);
+    };
+    const syncMotionPreference = () => {
+        clearTimers();
+        reset();
+        if (!motionQuery.matches && !document.hidden) {
+            later(runFight, 700);
+        }
+    };
+    motionQuery.addEventListener('change', syncMotionPreference);
+    document.addEventListener('visibilitychange', syncMotionPreference);
+    syncMotionPreference();
+};
 const arsenalItems = [
     { key: 'notebook', image: 'notebook', name: 'notebook', effectName: 'notebook', description: 'notebook', role: 'utility', animation: 'idle', effect: 'plan' },
     { key: 'potion', image: 'potion', name: 'potion', effectName: 'potion', description: 'potion', role: 'boost', animation: 'damage', effect: 'boost' },
@@ -626,6 +704,7 @@ const init = () => {
     initMobileNavigation();
     initLanguageSwitcher();
     initLunchboxDamage();
+    initHeroStory();
     initArsenalPlayground();
     renderDynamicSections();
     updateYear();

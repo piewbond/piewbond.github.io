@@ -617,6 +617,101 @@ const initLunchboxDamage = (): void => {
   });
 };
 
+type HeroAction = 'idle' | 'attack' | 'jump' | 'death';
+
+const initHeroStory = (): void => {
+  const stage = document.querySelector<HTMLElement>('[data-hero-story]');
+  const kiddo = stage?.querySelector<HTMLElement>('[data-hero-kiddo]');
+  const worker = stage?.querySelector<HTMLElement>('[data-hero-worker]');
+  const kiddoImage = kiddo?.querySelector<HTMLImageElement>('img');
+  const workerImage = worker?.querySelector<HTMLImageElement>('img');
+  if (!stage || !kiddo || !worker || !kiddoImage || !workerImage) {
+    return;
+  }
+
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const timers: number[] = [];
+  const assets = {
+    kiddo: {
+      idle: '/assets/kiddo/kiddo-idle.png',
+      attack: '/assets/kiddo/kiddo-attack.png',
+      jump: '/assets/kiddo/kiddo-jump.png'
+    },
+    worker: {
+      idle: '/assets/kiddo/construction-worker-idle.png',
+      attack: '/assets/kiddo/construction-worker-attack.png',
+      death: '/assets/kiddo/construction-worker-death.png'
+    }
+  } as const;
+
+  const later = (callback: () => void, delay: number): void => {
+    timers.push(window.setTimeout(callback, delay));
+  };
+
+  const clearTimers = (): void => {
+    timers.splice(0).forEach(timer => window.clearTimeout(timer));
+  };
+
+  const setActor = (
+    actor: HTMLElement,
+    image: HTMLImageElement,
+    action: HeroAction,
+    source: string
+  ): void => {
+    actor.classList.remove('is-animating');
+    actor.dataset.action = action;
+    image.src = source;
+    void actor.offsetWidth;
+    actor.classList.add('is-animating');
+  };
+
+  const reset = (): void => {
+    stage.classList.remove('scene-fight', 'is-claiming', 'scene-jump');
+    setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+    setActor(worker, workerImage, 'idle', assets.worker.idle);
+  };
+
+  const runJump = (): void => {
+    reset();
+    stage.classList.add('scene-jump');
+    later(() => setActor(kiddo, kiddoImage, 'jump', assets.kiddo.jump), 350);
+    later(() => setActor(worker, workerImage, 'attack', assets.worker.attack), 520);
+    later(() => {
+      setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+      setActor(worker, workerImage, 'idle', assets.worker.idle);
+    }, 3900);
+    later(runFight, 5600);
+  };
+
+  const runFight = (): void => {
+    clearTimers();
+    reset();
+    stage.classList.add('scene-fight');
+    later(() => {
+      setActor(kiddo, kiddoImage, 'attack', assets.kiddo.attack);
+      setActor(worker, workerImage, 'attack', assets.worker.attack);
+    }, 850);
+    later(() => {
+      setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+      setActor(worker, workerImage, 'death', assets.worker.death);
+    }, 1900);
+    later(() => stage.classList.add('is-claiming'), 2850);
+    later(runJump, 6500);
+  };
+
+  const syncMotionPreference = (): void => {
+    clearTimers();
+    reset();
+    if (!motionQuery.matches && !document.hidden) {
+      later(runFight, 700);
+    }
+  };
+
+  motionQuery.addEventListener('change', syncMotionPreference);
+  document.addEventListener('visibilitychange', syncMotionPreference);
+  syncMotionPreference();
+};
+
 type ArsenalAnimation = 'idle' | 'attack' | 'dash' | 'jump' | 'damage';
 type ArsenalEffect = 'plan' | 'swing' | 'throw' | 'boost' | 'blink' | 'deploy';
 
@@ -781,6 +876,7 @@ const init = (): void => {
   initMobileNavigation();
   initLanguageSwitcher();
   initLunchboxDamage();
+  initHeroStory();
   initArsenalPlayground();
   renderDynamicSections();
   updateYear();

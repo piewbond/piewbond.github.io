@@ -6,6 +6,8 @@ public Black Cat Glass website with PiewBond's approval on 2026-08-15.
 - `kiddo-idle.png`: Kiddo idle sprite sheet, supplied by the project team.
 - `construction-worker-idle.png`: construction worker idle sprite sheet by
   mjedve, supplied through the project team's Discord.
+- `construction-worker-attack.png` and `construction-worker-death.png`:
+  construction worker action sheets by mjedve, reused by the hero vignettes.
 - `scaffolding-atrium.png`: development screenshot captured from the Kiddo
   Scaffolding Atrium scene.
 - `lunchbox-states.png`: lunchbox and sandwich health-state sheet supplied by
