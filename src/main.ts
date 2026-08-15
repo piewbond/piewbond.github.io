@@ -617,6 +617,136 @@ const initLunchboxDamage = (): void => {
   });
 };
 
+type ArsenalAnimation = 'idle' | 'attack' | 'dash' | 'jump' | 'damage';
+type ArsenalEffect = 'plan' | 'swing' | 'throw' | 'boost' | 'blink' | 'deploy';
+
+interface ArsenalItemDefinition {
+  key: string;
+  image: string;
+  name: string;
+  effectName: string;
+  description: string;
+  role: string;
+  animation: ArsenalAnimation;
+  effect: ArsenalEffect;
+}
+
+const arsenalItems: ArsenalItemDefinition[] = [
+  { key: 'notebook', image: 'notebook', name: 'notebook', effectName: 'notebook', description: 'notebook', role: 'utility', animation: 'idle', effect: 'plan' },
+  { key: 'potion', image: 'potion', name: 'potion', effectName: 'potion', description: 'potion', role: 'boost', animation: 'damage', effect: 'boost' },
+  { key: 'paper-star', image: 'paper-star', name: 'paperStar', effectName: 'paperStar', description: 'paperStar', role: 'projectile', animation: 'attack', effect: 'throw' },
+  { key: 'fries', image: 'fries', name: 'fries', effectName: 'fries', description: 'fries', role: 'boost', animation: 'dash', effect: 'boost' },
+  { key: 'bat', image: 'bat', name: 'bat', effectName: 'bat', description: 'bat', role: 'melee', animation: 'attack', effect: 'swing' },
+  { key: 'water-bottle', image: 'water-bottle', name: 'water', effectName: 'water', description: 'water', role: 'boost', animation: 'jump', effect: 'boost' },
+  { key: 'ammo-box', image: 'ammo-box', name: 'ammo', effectName: 'ammo', description: 'ammo', role: 'utility', animation: 'attack', effect: 'deploy' },
+  { key: 'wrapped-candy', image: 'wrapped-candy', name: 'candy', effectName: 'candy', description: 'candy', role: 'boost', animation: 'dash', effect: 'boost' },
+  { key: 'brick', image: 'brick', name: 'brick', effectName: 'brick', description: 'brick', role: 'melee', animation: 'attack', effect: 'swing' },
+  { key: 'basketball', image: 'basketball', name: 'basketball', effectName: 'basketball', description: 'basketball', role: 'projectile', animation: 'attack', effect: 'throw' },
+  { key: 'jacks', image: 'jacks', name: 'jacks', effectName: 'jacks', description: 'jacks', role: 'utility', animation: 'jump', effect: 'deploy' },
+  { key: 'cutlery', image: 'cutlery', name: 'cutlery', effectName: 'cutlery', description: 'cutlery', role: 'melee', animation: 'attack', effect: 'swing' },
+  { key: 'bread', image: 'bread', name: 'bread', effectName: 'bread', description: 'bread', role: 'boost', animation: 'damage', effect: 'boost' },
+  { key: 'sock', image: 'sock', name: 'sock', effectName: 'sock', description: 'sock', role: 'mobility', animation: 'dash', effect: 'blink' }
+];
+
+const arsenalAnimationAssets: Record<ArsenalAnimation, string> = {
+  idle: '/assets/kiddo/kiddo-idle.png',
+  attack: '/assets/kiddo/kiddo-attack.png',
+  dash: '/assets/kiddo/kiddo-dash.png',
+  jump: '/assets/kiddo/kiddo-jump.png',
+  damage: '/assets/kiddo/kiddo-damage.png'
+};
+
+const initArsenalPlayground = (): void => {
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-arsenal-item]'));
+  const actor = document.querySelector<HTMLElement>('[data-arsenal-actor]');
+  const actorImage = actor?.querySelector<HTMLImageElement>('img');
+  const effect = document.querySelector<HTMLElement>('[data-arsenal-effect]');
+  const name = document.querySelector<HTMLElement>('[data-arsenal-name]');
+  const role = document.querySelector<HTMLElement>('[data-arsenal-role]');
+  const description = document.querySelector<HTMLElement>('[data-arsenal-description]');
+  const activate = document.querySelector<HTMLButtonElement>('[data-arsenal-activate]');
+
+  if (!buttons.length || !actor || !actorImage || !effect || !name || !role || !description || !activate) {
+    return;
+  }
+
+  let selected = arsenalItems[0];
+  let resetTimer: number | undefined;
+
+  const translationKey = (item: ArsenalItemDefinition, field: 'name' | 'effect' | 'description'): string =>
+    `home.arsenal.item.${item[field === 'effect' ? 'effectName' : field]}.${field}`;
+
+  const updateReadout = (item: ArsenalItemDefinition): void => {
+    selected = item;
+    const nameKey = translationKey(item, 'name');
+    const effectKey = translationKey(item, 'effect');
+    const descriptionKey = translationKey(item, 'description');
+    const roleKey = `home.arsenal.role.${item.role}`;
+
+    name.dataset.i18n = effectKey;
+    name.textContent = translate(effectKey);
+    role.dataset.i18n = roleKey;
+    role.textContent = translate(roleKey);
+    description.dataset.i18n = descriptionKey;
+    description.textContent = translate(descriptionKey);
+    activate.dataset.i18n = 'home.arsenal.try';
+    activate.textContent = translate('home.arsenal.try');
+
+    buttons.forEach(button => {
+      const definition = arsenalItems.find(entry => entry.key === button.dataset.arsenalItem);
+      const isSelected = definition?.key === item.key;
+      button.classList.toggle('is-selected', isSelected);
+      button.setAttribute('aria-pressed', String(isSelected));
+      if (definition) {
+        const buttonNameKey = translationKey(definition, 'name');
+        button.dataset.i18nAriaLabel = buttonNameKey;
+        button.setAttribute('aria-label', translate(buttonNameKey));
+      }
+    });
+  };
+
+  const resetStage = (): void => {
+    actor.classList.remove('is-playing');
+    effect.classList.remove('is-playing');
+    effect.replaceChildren();
+    actor.dataset.animation = 'idle';
+    actorImage.src = arsenalAnimationAssets.idle;
+  };
+
+  const playSelected = (): void => {
+    window.clearTimeout(resetTimer);
+    actor.classList.remove('is-playing');
+    effect.classList.remove('is-playing');
+    effect.replaceChildren();
+    void actor.offsetWidth;
+
+    actor.dataset.animation = selected.animation;
+    actorImage.src = arsenalAnimationAssets[selected.animation];
+    effect.dataset.effect = selected.effect;
+    effect.dataset.item = selected.key;
+    const prop = document.createElement('img');
+    prop.className = 'arsenal-prop';
+    prop.src = `/assets/kiddo/item-${selected.image}.png`;
+    prop.alt = '';
+    effect.appendChild(prop);
+    actor.classList.add('is-playing');
+    effect.classList.add('is-playing');
+    resetTimer = window.setTimeout(resetStage, 1050);
+  };
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const item = arsenalItems.find(entry => entry.key === button.dataset.arsenalItem);
+      if (item) {
+        updateReadout(item);
+        playSelected();
+      }
+    });
+  });
+  activate.addEventListener('click', playSelected);
+  updateReadout(selected);
+};
+
 const setLocale = (locale: Locale): void => {
   if (locale === currentLocale) {
     return;
@@ -651,6 +781,7 @@ const init = (): void => {
   initMobileNavigation();
   initLanguageSwitcher();
   initLunchboxDamage();
+  initArsenalPlayground();
   renderDynamicSections();
   updateYear();
 };

@@ -17,6 +17,9 @@ public Black Cat Glass website with PiewBond's approval on 2026-08-15.
 - `items.png`: prototype item sheet supplied by the project team.
 - `item-*.png`: 14 tightly cropped item sprites derived from `items.png` for
   the responsive arsenal grid.
+- `kiddo-attack.png`, `kiddo-dash.png`, `kiddo-jump.png`, and
+  `kiddo-damage.png`: Kiddo action sprite sheets supplied by the project team,
+  reused by the interactive arsenal test bench.
 
 They are promotional development materials and may be replaced as the game's
 visual direction evolves.
