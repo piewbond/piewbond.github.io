@@ -507,7 +507,12 @@ const initHeroStory = () => {
     const assets = {
         kiddo: {
             idle: { source: '/assets/kiddo/kiddo-idle.png', frames: 4, frameDuration: 225, loop: true },
-            attack: { source: '/assets/kiddo/kiddo-attack.png', frames: 9, frameDuration: 98 },
+            attack: {
+                source: '/assets/kiddo/kiddo-attack.png',
+                frames: 9,
+                frameDuration: 98,
+                renderAsBackground: true
+            },
             jump: { source: '/assets/kiddo/kiddo-jump.png', frames: 7, frameDuration: 150 }
         },
         worker: {
@@ -534,9 +539,19 @@ const initHeroStory = () => {
         actor.dataset.action = action;
         image.src = sprite.source;
         image.style.width = `${sprite.frames * 100}%`;
+        actor.classList.toggle('uses-background-frames', Boolean(sprite.renderAsBackground));
+        actor.style.backgroundImage = sprite.renderAsBackground ? `url("${sprite.source}")` : '';
+        actor.style.backgroundSize = sprite.renderAsBackground ? `${sprite.frames * 100}% auto` : '';
         let frame = 0;
         const showFrame = () => {
-            image.style.transform = `translate3d(-${(frame * 100) / sprite.frames}%, 0, 0)`;
+            if (sprite.renderAsBackground) {
+                const position = sprite.frames > 1 ? (frame * 100) / (sprite.frames - 1) : 0;
+                actor.style.backgroundPosition = `${position}% 0`;
+            }
+            else {
+                actor.style.backgroundPosition = '';
+                image.style.transform = `translate3d(-${(frame * 100) / sprite.frames}%, 0, 0)`;
+            }
         };
         showFrame();
         if (motionQuery.matches || sprite.frames < 2) {
