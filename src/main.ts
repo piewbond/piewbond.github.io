@@ -361,6 +361,14 @@ const applyTranslations = (): void => {
       node.placeholder = translate(key);
     }
   });
+
+  const ariaLabelNodes = document.querySelectorAll<HTMLElement>('[data-i18n-aria-label]');
+  ariaLabelNodes.forEach(node => {
+    const key = node.dataset.i18nAriaLabel;
+    if (key) {
+      node.setAttribute('aria-label', translate(key));
+    }
+  });
 };
 
 const updateLanguageButtons = (): void => {
@@ -551,6 +559,335 @@ const updateYear = (): void => {
   }
 };
 
+const initLunchboxDamage = (): void => {
+  const controls = document.querySelectorAll<HTMLButtonElement>('[data-lunchbox-control]');
+  const states = [
+    { image: '/assets/kiddo/lunchbox-full.png', label: 'home.mission.damage.full' },
+    { image: '/assets/kiddo/lunchbox-damaged.png', label: 'home.mission.damage.damaged' },
+    { image: '/assets/kiddo/lunchbox-broken.png', label: 'home.mission.damage.broken' }
+  ] as const;
+
+  states.slice(1).forEach(state => {
+    const preload = new Image();
+    preload.src = state.image;
+  });
+
+  controls.forEach(control => {
+    const image = control.querySelector<HTMLImageElement>('img');
+    if (!image) {
+      return;
+    }
+
+    let stateIndex = 0;
+    let resetTimer: number | undefined;
+
+    const setState = (nextStateIndex: number): void => {
+      stateIndex = nextStateIndex;
+      const state = states[stateIndex];
+      image.src = state.image;
+      control.dataset.i18nAriaLabel = state.label;
+      control.setAttribute('aria-label', translate(state.label));
+      control.disabled = stateIndex === states.length - 1;
+    };
+
+    const scheduleReset = (): void => {
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        setState(0);
+      }, 1800);
+    };
+
+    control.addEventListener('click', () => {
+      if (stateIndex >= states.length - 1) {
+        return;
+      }
+
+      setState(stateIndex + 1);
+      control.classList.remove('is-hit');
+      void control.offsetWidth;
+      control.classList.add('is-hit');
+      scheduleReset();
+    });
+
+    image.addEventListener('animationend', event => {
+      if (event.animationName === 'lunchbox-hit') {
+        control.classList.remove('is-hit');
+      }
+    });
+  });
+};
+
+type HeroAction = 'idle' | 'attack' | 'jump' | 'death';
+
+interface HeroSprite {
+  source: string;
+  frames: number;
+  frameDuration: number;
+  loop?: boolean;
+  renderAsBackground?: boolean;
+}
+
+const initHeroStory = (): void => {
+  const stage = document.querySelector<HTMLElement>('[data-hero-story]');
+  const kiddo = stage?.querySelector<HTMLElement>('[data-hero-kiddo]');
+  const worker = stage?.querySelector<HTMLElement>('[data-hero-worker]');
+  const kiddoImage = kiddo?.querySelector<HTMLImageElement>('img');
+  const workerImage = worker?.querySelector<HTMLImageElement>('img');
+  if (!stage || !kiddo || !worker || !kiddoImage || !workerImage) {
+    return;
+  }
+
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const timers: number[] = [];
+  const frameTimers = new Map<HTMLElement, number>();
+  const assets = {
+    kiddo: {
+      idle: { source: '/assets/kiddo/kiddo-idle.png', frames: 4, frameDuration: 225, loop: true },
+      attack: {
+        source: '/assets/kiddo/kiddo-attack.png',
+        frames: 9,
+        frameDuration: 98,
+        renderAsBackground: true
+      },
+      jump: { source: '/assets/kiddo/kiddo-jump.png', frames: 7, frameDuration: 150 }
+    },
+    worker: {
+      idle: { source: '/assets/kiddo/construction-worker-idle.png', frames: 4, frameDuration: 288, loop: true },
+      attack: { source: '/assets/kiddo/construction-worker-attack.png', frames: 10, frameDuration: 105 },
+      death: { source: '/assets/kiddo/construction-worker-death.png', frames: 6, frameDuration: 163 }
+    }
+  } as const;
+
+  const later = (callback: () => void, delay: number): void => {
+    timers.push(window.setTimeout(callback, delay));
+  };
+
+  const clearTimers = (): void => {
+    timers.splice(0).forEach(timer => window.clearTimeout(timer));
+  };
+
+  const stopFrames = (actor: HTMLElement): void => {
+    const timer = frameTimers.get(actor);
+    if (timer !== undefined) {
+      window.clearInterval(timer);
+      frameTimers.delete(actor);
+    }
+  };
+
+  const setActor = (
+    actor: HTMLElement,
+    image: HTMLImageElement,
+    action: HeroAction,
+    sprite: HeroSprite
+  ): void => {
+    stopFrames(actor);
+    actor.dataset.action = action;
+    image.src = sprite.source;
+    image.style.width = `${sprite.frames * 100}%`;
+    actor.classList.toggle('uses-background-frames', Boolean(sprite.renderAsBackground));
+    actor.style.backgroundImage = sprite.renderAsBackground ? `url("${sprite.source}")` : '';
+    actor.style.backgroundSize = sprite.renderAsBackground ? `${sprite.frames * 100}% auto` : '';
+
+    let frame = 0;
+    const showFrame = (): void => {
+      if (sprite.renderAsBackground) {
+        const position = sprite.frames > 1 ? (frame * 100) / (sprite.frames - 1) : 0;
+        actor.style.backgroundPosition = `${position}% 0`;
+      } else {
+        actor.style.backgroundPosition = '';
+        image.style.transform = `translate3d(-${(frame * 100) / sprite.frames}%, 0, 0)`;
+      }
+    };
+    showFrame();
+
+    if (motionQuery.matches || sprite.frames < 2) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      if (frame === sprite.frames - 1) {
+        if (!sprite.loop) {
+          stopFrames(actor);
+          return;
+        }
+        frame = 0;
+      } else {
+        frame += 1;
+      }
+      showFrame();
+    }, sprite.frameDuration);
+    frameTimers.set(actor, timer);
+  };
+
+  const reset = (): void => {
+    stage.classList.remove('scene-fight', 'is-claiming', 'scene-jump');
+    setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+    setActor(worker, workerImage, 'idle', assets.worker.idle);
+  };
+
+  const idleBefore = (nextScene: () => void): void => {
+    reset();
+    later(nextScene, 2000);
+  };
+
+  const runJump = (): void => {
+    reset();
+    stage.classList.add('scene-jump');
+    later(() => setActor(kiddo, kiddoImage, 'jump', assets.kiddo.jump), 350);
+    later(() => setActor(worker, workerImage, 'attack', assets.worker.attack), 520);
+    later(() => {
+      setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
+      setActor(worker, workerImage, 'idle', assets.worker.idle);
+    }, 3900);
+    later(() => idleBefore(runJump), 4400);
+  };
+
+  // TODO: Rebuild the fight sequence once Kiddo's multi-row attack sheet can
+  // be composed without sprite doubling at responsive hero sizes.
+
+  const syncMotionPreference = (): void => {
+    clearTimers();
+    reset();
+    if (!motionQuery.matches && !document.hidden) {
+      later(runJump, 700);
+    }
+  };
+
+  motionQuery.addEventListener('change', syncMotionPreference);
+  document.addEventListener('visibilitychange', syncMotionPreference);
+  syncMotionPreference();
+};
+
+type ArsenalAnimation = 'idle' | 'attack' | 'dash' | 'jump' | 'damage';
+type ArsenalEffect = 'plan' | 'swing' | 'throw' | 'boost' | 'blink' | 'deploy';
+
+interface ArsenalItemDefinition {
+  key: string;
+  image: string;
+  name: string;
+  effectName: string;
+  description: string;
+  role: string;
+  animation: ArsenalAnimation;
+  effect: ArsenalEffect;
+}
+
+const arsenalItems: ArsenalItemDefinition[] = [
+  { key: 'notebook', image: 'notebook', name: 'notebook', effectName: 'notebook', description: 'notebook', role: 'utility', animation: 'idle', effect: 'plan' },
+  { key: 'potion', image: 'potion', name: 'potion', effectName: 'potion', description: 'potion', role: 'boost', animation: 'damage', effect: 'boost' },
+  { key: 'paper-star', image: 'paper-star', name: 'paperStar', effectName: 'paperStar', description: 'paperStar', role: 'projectile', animation: 'attack', effect: 'throw' },
+  { key: 'fries', image: 'fries', name: 'fries', effectName: 'fries', description: 'fries', role: 'boost', animation: 'dash', effect: 'boost' },
+  { key: 'bat', image: 'bat', name: 'bat', effectName: 'bat', description: 'bat', role: 'melee', animation: 'attack', effect: 'swing' },
+  { key: 'water-bottle', image: 'water-bottle', name: 'water', effectName: 'water', description: 'water', role: 'boost', animation: 'jump', effect: 'boost' },
+  { key: 'ammo-box', image: 'ammo-box', name: 'ammo', effectName: 'ammo', description: 'ammo', role: 'utility', animation: 'attack', effect: 'deploy' },
+  { key: 'wrapped-candy', image: 'wrapped-candy', name: 'candy', effectName: 'candy', description: 'candy', role: 'boost', animation: 'dash', effect: 'boost' },
+  { key: 'brick', image: 'brick', name: 'brick', effectName: 'brick', description: 'brick', role: 'melee', animation: 'attack', effect: 'swing' },
+  { key: 'basketball', image: 'basketball', name: 'basketball', effectName: 'basketball', description: 'basketball', role: 'projectile', animation: 'attack', effect: 'throw' },
+  { key: 'jacks', image: 'jacks', name: 'jacks', effectName: 'jacks', description: 'jacks', role: 'utility', animation: 'jump', effect: 'deploy' },
+  { key: 'cutlery', image: 'cutlery', name: 'cutlery', effectName: 'cutlery', description: 'cutlery', role: 'melee', animation: 'attack', effect: 'swing' },
+  { key: 'bread', image: 'bread', name: 'bread', effectName: 'bread', description: 'bread', role: 'boost', animation: 'damage', effect: 'boost' },
+  { key: 'sock', image: 'sock', name: 'sock', effectName: 'sock', description: 'sock', role: 'mobility', animation: 'dash', effect: 'blink' }
+];
+
+const arsenalAnimationAssets: Record<ArsenalAnimation, string> = {
+  idle: '/assets/kiddo/kiddo-idle.png',
+  attack: '/assets/kiddo/kiddo-attack.png',
+  dash: '/assets/kiddo/kiddo-dash.png',
+  jump: '/assets/kiddo/kiddo-jump.png',
+  damage: '/assets/kiddo/kiddo-damage.png'
+};
+
+const initArsenalPlayground = (): void => {
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-arsenal-item]'));
+  const actor = document.querySelector<HTMLElement>('[data-arsenal-actor]');
+  const actorImage = actor?.querySelector<HTMLImageElement>('img');
+  const effect = document.querySelector<HTMLElement>('[data-arsenal-effect]');
+  const name = document.querySelector<HTMLElement>('[data-arsenal-name]');
+  const role = document.querySelector<HTMLElement>('[data-arsenal-role]');
+  const description = document.querySelector<HTMLElement>('[data-arsenal-description]');
+  const activate = document.querySelector<HTMLButtonElement>('[data-arsenal-activate]');
+
+  if (!buttons.length || !actor || !actorImage || !effect || !name || !role || !description || !activate) {
+    return;
+  }
+
+  let selected = arsenalItems[0];
+  let resetTimer: number | undefined;
+
+  const translationKey = (item: ArsenalItemDefinition, field: 'name' | 'effect' | 'description'): string =>
+    `home.arsenal.item.${item[field === 'effect' ? 'effectName' : field]}.${field}`;
+
+  const updateReadout = (item: ArsenalItemDefinition): void => {
+    selected = item;
+    const nameKey = translationKey(item, 'name');
+    const effectKey = translationKey(item, 'effect');
+    const descriptionKey = translationKey(item, 'description');
+    const roleKey = `home.arsenal.role.${item.role}`;
+
+    name.dataset.i18n = effectKey;
+    name.textContent = translate(effectKey);
+    role.dataset.i18n = roleKey;
+    role.textContent = translate(roleKey);
+    description.dataset.i18n = descriptionKey;
+    description.textContent = translate(descriptionKey);
+    activate.dataset.i18n = 'home.arsenal.try';
+    activate.textContent = translate('home.arsenal.try');
+
+    buttons.forEach(button => {
+      const definition = arsenalItems.find(entry => entry.key === button.dataset.arsenalItem);
+      const isSelected = definition?.key === item.key;
+      button.classList.toggle('is-selected', isSelected);
+      button.setAttribute('aria-pressed', String(isSelected));
+      if (definition) {
+        const buttonNameKey = translationKey(definition, 'name');
+        button.dataset.i18nAriaLabel = buttonNameKey;
+        button.setAttribute('aria-label', translate(buttonNameKey));
+      }
+    });
+  };
+
+  const resetStage = (): void => {
+    actor.classList.remove('is-playing');
+    effect.classList.remove('is-playing');
+    effect.replaceChildren();
+    actor.dataset.animation = 'idle';
+    actorImage.src = arsenalAnimationAssets.idle;
+  };
+
+  const playSelected = (): void => {
+    window.clearTimeout(resetTimer);
+    actor.classList.remove('is-playing');
+    effect.classList.remove('is-playing');
+    effect.replaceChildren();
+    void actor.offsetWidth;
+
+    actor.dataset.animation = selected.animation;
+    actorImage.src = arsenalAnimationAssets[selected.animation];
+    effect.dataset.effect = selected.effect;
+    effect.dataset.item = selected.key;
+    const prop = document.createElement('img');
+    prop.className = 'arsenal-prop';
+    prop.src = `/assets/kiddo/item-${selected.image}.png`;
+    prop.alt = '';
+    effect.appendChild(prop);
+    actor.classList.add('is-playing');
+    effect.classList.add('is-playing');
+    resetTimer = window.setTimeout(resetStage, 1050);
+  };
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const item = arsenalItems.find(entry => entry.key === button.dataset.arsenalItem);
+      if (item) {
+        updateReadout(item);
+        playSelected();
+      }
+    });
+  });
+  activate.addEventListener('click', playSelected);
+  updateReadout(selected);
+};
+
 const setLocale = (locale: Locale): void => {
   if (locale === currentLocale) {
     return;
@@ -584,6 +921,9 @@ const init = (): void => {
   activateNavigation();
   initMobileNavigation();
   initLanguageSwitcher();
+  initLunchboxDamage();
+  initHeroStory();
+  initArsenalPlayground();
   renderDynamicSections();
   updateYear();
 };
