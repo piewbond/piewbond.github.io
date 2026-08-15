@@ -503,16 +503,17 @@ const initHeroStory = () => {
     }
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const timers = [];
+    const frameTimers = new Map();
     const assets = {
         kiddo: {
-            idle: '/assets/kiddo/kiddo-idle.png',
-            attack: '/assets/kiddo/kiddo-attack.png',
-            jump: '/assets/kiddo/kiddo-jump.png'
+            idle: { source: '/assets/kiddo/kiddo-idle.png', frames: 4, frameDuration: 225, loop: true },
+            attack: { source: '/assets/kiddo/kiddo-attack.png', frames: 3, frameDuration: 293 },
+            jump: { source: '/assets/kiddo/kiddo-jump.png', frames: 7, frameDuration: 150 }
         },
         worker: {
-            idle: '/assets/kiddo/construction-worker-idle.png',
-            attack: '/assets/kiddo/construction-worker-attack.png',
-            death: '/assets/kiddo/construction-worker-death.png'
+            idle: { source: '/assets/kiddo/construction-worker-idle.png', frames: 4, frameDuration: 288, loop: true },
+            attack: { source: '/assets/kiddo/construction-worker-attack.png', frames: 10, frameDuration: 105 },
+            death: { source: '/assets/kiddo/construction-worker-death.png', frames: 6, frameDuration: 163 }
         }
     };
     const later = (callback, delay) => {
@@ -521,12 +522,40 @@ const initHeroStory = () => {
     const clearTimers = () => {
         timers.splice(0).forEach(timer => window.clearTimeout(timer));
     };
-    const setActor = (actor, image, action, source) => {
-        actor.classList.remove('is-animating');
+    const stopFrames = (actor) => {
+        const timer = frameTimers.get(actor);
+        if (timer !== undefined) {
+            window.clearInterval(timer);
+            frameTimers.delete(actor);
+        }
+    };
+    const setActor = (actor, image, action, sprite) => {
+        stopFrames(actor);
         actor.dataset.action = action;
-        image.src = source;
-        void actor.offsetWidth;
-        actor.classList.add('is-animating');
+        image.src = sprite.source;
+        image.style.width = `${sprite.frames * 100}%`;
+        let frame = 0;
+        const showFrame = () => {
+            image.style.transform = `translate3d(-${(frame * 100) / sprite.frames}%, 0, 0)`;
+        };
+        showFrame();
+        if (motionQuery.matches || sprite.frames < 2) {
+            return;
+        }
+        const timer = window.setInterval(() => {
+            if (frame === sprite.frames - 1) {
+                if (!sprite.loop) {
+                    stopFrames(actor);
+                    return;
+                }
+                frame = 0;
+            }
+            else {
+                frame += 1;
+            }
+            showFrame();
+        }, sprite.frameDuration);
+        frameTimers.set(actor, timer);
     };
     const reset = () => {
         stage.classList.remove('scene-fight', 'is-claiming', 'scene-jump');

@@ -703,7 +703,8 @@ body[data-page="home"] {
   max-width: none;
   image-rendering: pixelated;
   filter: drop-shadow(0 25px 18px rgba(0, 0, 0, 0.76));
-  animation: sprite-idle 900ms steps(4, jump-none) infinite;
+  animation: none;
+  will-change: transform;
 }
 
 .sprite-crop-kiddo {
@@ -722,34 +723,6 @@ body[data-page="home"] {
 
 .sprite-crop-enemy img {
   filter: saturate(0.68) contrast(1.15) brightness(0.68);
-  animation-duration: 1150ms;
-}
-
-.sprite-crop[data-action="attack"] img,
-.sprite-crop[data-action="jump"] img,
-.sprite-crop[data-action="death"] img {
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-.sprite-crop-kiddo[data-action="attack"] img {
-  width: 900%;
-  animation: hero-kiddo-attack 880ms steps(9, end) forwards;
-}
-
-.sprite-crop-kiddo[data-action="jump"] img {
-  width: 700%;
-  animation: hero-kiddo-jump 1050ms steps(7, end) forwards;
-}
-
-.sprite-crop-enemy[data-action="attack"] img {
-  width: 1000%;
-  animation: hero-worker-attack 1050ms steps(10, end) forwards;
-}
-
-.sprite-crop-enemy[data-action="death"] img {
-  width: 600%;
-  animation: hero-worker-death 980ms steps(6, end) forwards;
 }
 
 .kiddo-hero-art.scene-fight .hero-lunchbox {
@@ -778,22 +751,6 @@ body[data-page="home"] {
 
 .kiddo-hero-art.scene-jump .hero-lunchbox {
   animation: hero-lunchbox-chase 4.25s cubic-bezier(0.3, 0.1, 0.45, 1) forwards;
-}
-
-@keyframes hero-kiddo-attack {
-  to { transform: translateX(-88.8889%); }
-}
-
-@keyframes hero-kiddo-jump {
-  to { transform: translateX(-85.7143%); }
-}
-
-@keyframes hero-worker-attack {
-  to { transform: translateX(-90%); }
-}
-
-@keyframes hero-worker-death {
-  to { transform: translateX(-83.3333%); }
 }
 
 @keyframes hero-worker-fall {
@@ -1513,12 +1470,6 @@ body[data-page="home"] {
   0% { transform: translate(-25px, -80px) rotate(-12deg); opacity: 0; }
   70% { transform: translate(65px, 65px) rotate(10deg); opacity: 1; }
   100% { transform: translate(65px, 58px) rotate(0); opacity: 1; }
-}
-
-@keyframes sprite-idle {
-  to {
-    transform: translateX(-75%);
-  }
 }
 
 @keyframes lunchbox-idle {
