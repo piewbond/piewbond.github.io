@@ -633,6 +633,7 @@ const initHeroStory = (): void => {
   const worker = stage?.querySelector<HTMLElement>('[data-hero-worker]');
   const kiddoImage = kiddo?.querySelector<HTMLImageElement>('img');
   const workerImage = worker?.querySelector<HTMLImageElement>('img');
+  const lunchbox = stage?.querySelector<HTMLElement>('[data-hero-lunchbox]');
   if (!stage || !kiddo || !worker || !kiddoImage || !workerImage) {
     return;
   }
@@ -719,27 +720,105 @@ const initHeroStory = (): void => {
     frameTimers.set(actor, timer);
   };
 
+  const motions: Animation[] = [];
+
+  const move = (element: HTMLElement, keyframes: Keyframe[], duration: number): void => {
+    motions.push(element.animate(keyframes, { duration, fill: 'forwards' }));
+  };
+
   const reset = (): void => {
-    stage.classList.remove('scene-fight', 'is-claiming', 'scene-jump');
+    motions.splice(0).forEach(motion => motion.cancel());
+    stage.classList.remove('scene-fight', 'is-claiming');
     setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
     setActor(worker, workerImage, 'idle', assets.worker.idle);
   };
 
-  const idleBefore = (nextScene: () => void): void => {
-    reset();
-    later(nextScene, 2000);
-  };
+  // Kiddo's jump sheet is airborne from frame 2 until it lands on frame 5, so
+  // the hop arc only moves him while those frames are on screen.
+  const jumpDuration = assets.kiddo.jump.frames * assets.kiddo.jump.frameDuration;
+  const takeoff = (2 * assets.kiddo.jump.frameDuration) / jumpDuration;
+  const touchdown = (5 * assets.kiddo.jump.frameDuration) / jumpDuration;
+  const apex = (takeoff + touchdown) / 2;
+  const hop = (place: (x: number, lift: number) => Keyframe, fromX: number, toX: number): Keyframe[] => [
+    { ...place(fromX, 0), offset: 0 },
+    { ...place(fromX, 0), offset: takeoff, easing: 'cubic-bezier(0.2, 0.6, 0.4, 1)' },
+    { ...place((fromX + toX) / 2, 1), offset: apex, easing: 'cubic-bezier(0.6, 0, 0.8, 0.4)' },
+    { ...place(toX, 0), offset: touchdown },
+    { ...place(toX, 0), offset: 1 }
+  ];
 
-  const runJump = (): void => {
+  const runScene = (): void => {
     reset();
-    stage.classList.add('scene-jump');
-    later(() => setActor(kiddo, kiddoImage, 'jump', assets.kiddo.jump), 350);
-    later(() => setActor(worker, workerImage, 'attack', assets.worker.attack), 520);
+
+    // Measure in the resting pose so the carried lunchbox lines up with
+    // Kiddo's hands at every responsive hero size.
+    const kiddoBox = kiddo.getBoundingClientRect();
+    const lunchboxBox = lunchbox?.getBoundingClientRect();
+    const lunchboxRest = lunchbox ? getComputedStyle(lunchbox).transform : 'none';
+    const hopHeight = 0.26;
+    const holdX = lunchboxBox ? kiddoBox.left + kiddoBox.width * 0.46 - lunchboxBox.left : 0;
+    const holdY = lunchboxBox ? kiddoBox.bottom - kiddoBox.height * 0.05 - lunchboxBox.bottom : 0;
+    // Land exactly where the lunchbox can be lifted straight up.
+    const hopDistance = Math.min(0.45, Math.max(0.15, -holdX / kiddoBox.width));
+    const placeKiddo = (x: number, lift: number): Keyframe => ({
+      transform: `translate(${x * 100}%, ${-lift * hopHeight * 100}%)`
+    });
+    const placeLunchbox = (x: number, lift: number): Keyframe => ({
+      transform: `translate(${holdX + x * kiddoBox.width}px, ${holdY - lift * hopHeight * kiddoBox.height}px) ${lunchboxRest}`
+    });
+    const restLunchbox: Keyframe = { transform: lunchboxRest };
+
+    // Kiddo hops over to the lunchbox in front of the worker.
     later(() => {
-      setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle);
-      setActor(worker, workerImage, 'idle', assets.worker.idle);
-    }, 3900);
-    later(() => idleBefore(runJump), 4400);
+      setActor(kiddo, kiddoImage, 'jump', assets.kiddo.jump);
+      move(kiddo, hop(placeKiddo, 0, hopDistance), jumpDuration);
+    }, 1200);
+    later(() => setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle), 1200 + jumpDuration);
+
+    // He scoops it up right after landing.
+    later(() => {
+      if (lunchbox) {
+        move(lunchbox, [restLunchbox, { ...placeLunchbox(hopDistance, 0.35), offset: 0.6 }, placeLunchbox(hopDistance, 0)], 260);
+      }
+    }, 1200 + touchdown * jumpDuration + 90);
+
+    // The worker swings and lunges; Kiddo hops back out of reach with the lunchbox.
+    const swingAt = 2150;
+    const swingDuration = assets.worker.attack.frames * assets.worker.attack.frameDuration;
+    later(() => {
+      setActor(worker, workerImage, 'attack', assets.worker.attack);
+      move(worker, [
+        { transform: 'translate(0, 0) scaleX(-1)' },
+        { transform: 'translate(-2%, 0) scaleX(-1)', offset: 0.45 },
+        { transform: 'translate(-6%, 0) scaleX(-1)', offset: 0.62 },
+        { transform: 'translate(-6%, 0) scaleX(-1)', offset: 0.78 },
+        { transform: 'translate(0, 0) scaleX(-1)' }
+      ], swingDuration);
+    }, swingAt);
+    later(() => setActor(worker, workerImage, 'idle', assets.worker.idle), swingAt + swingDuration);
+
+    const escapeAt = 2400;
+    later(() => {
+      setActor(kiddo, kiddoImage, 'jump', assets.kiddo.jump);
+      move(kiddo, hop(placeKiddo, hopDistance, 0), jumpDuration);
+      if (lunchbox) {
+        move(lunchbox, hop(placeLunchbox, hopDistance, 0), jumpDuration);
+      }
+    }, escapeAt);
+    later(() => setActor(kiddo, kiddoImage, 'idle', assets.kiddo.idle), escapeAt + jumpDuration);
+
+    // Quietly return the lunchbox to its spot before the scene repeats.
+    later(() => {
+      if (lunchbox) {
+        move(lunchbox, [
+          { ...placeLunchbox(0, 0), opacity: 1 },
+          { ...placeLunchbox(0, 0), opacity: 0, offset: 0.4 },
+          { ...restLunchbox, opacity: 0, offset: 0.6 },
+          { ...restLunchbox, opacity: 1 }
+        ], 900);
+      }
+    }, 5200);
+    later(runScene, 6600);
   };
 
   // TODO: Rebuild the fight sequence once Kiddo's multi-row attack sheet can
@@ -749,7 +828,7 @@ const initHeroStory = (): void => {
     clearTimers();
     reset();
     if (!motionQuery.matches && !document.hidden) {
-      later(runJump, 700);
+      later(runScene, 700);
     }
   };
 
